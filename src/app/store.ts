@@ -1,9 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
+import imageReducer from "../features/imageSlice";
+import aboutReducer from "../features/aboutSlice";
+import serviceReducer from "../features/serviceSlice";
+import contactReducer from "../features/contactSlice";
 import contentReducer from "../features/contentSlice";
+import userReducer from "../features/loginSlice";
 
 export const store = configureStore({
   reducer: {
+    imageContent: imageReducer,
+    aboutContent: aboutReducer,
+    serviceContentData: serviceReducer,
+    contactData: contactReducer,
     content: contentReducer,
+    user: userReducer,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

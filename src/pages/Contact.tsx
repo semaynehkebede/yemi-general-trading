@@ -14,19 +14,18 @@ import {
   Stack,
   TextInput,
   Textarea,
-  NavLink,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import coffee from "../assets/image/c1.webp"; // Import the image
-import avatoor2 from "../assets/image/avator2.jpg"; // Import the image
 import map from "../assets/image/map.png"; // Import the image
 import { FaPhone } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { PiBuilding } from "react-icons/pi";
+import { useAppSelector } from "../hooks/hooks";
+import { RootState } from "../app/store";
 
 const Contact = () => {
+  const contactData = useAppSelector((state: RootState) => state.contactData);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -38,6 +37,27 @@ const Contact = () => {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
+
+
+  const handleSubmit = (values: any) => {
+      // const created_by = "Admin";
+      // // Create FormData object
+      // const formData = new FormData();
+      // formData.append("service_name", values.service_name);
+      // formData.append("description", values.description);
+      // formData.append("display_place", values.display_place); // Raw string
+      // formData.append("service_type", values.service_type); // Raw string
+      // formData.append("created_by", created_by);
+  
+      // if (values.image) {
+      //   formData.append("image", values.image); // File object
+      // }
+  
+      // console.log("Submitting form data:", [...formData.entries()]);
+      // // Dispatch the action (createContentAction should support FormData)
+      // dispatch(createServiceAction(formData));
+      // props.onClose(true);
+    };
   return (
     <>
       <Container
@@ -64,7 +84,10 @@ const Contact = () => {
                 <Space />
               </Stack>
               <Text size="md" c="dimmed" ta={"center"}>
-                +971543017029
+                {contactData.contact.length > 0 &&
+                contactData.contact[0]?.phoneNumber
+                  ? contactData.contact[0]?.phoneNumber
+                  : `+971543017029`}
               </Text>
             </Card>
           </Grid.Col>
@@ -79,7 +102,10 @@ const Contact = () => {
                 <Space />
               </Stack>
               <Text size="md" c="dimmed" ta={"center"}>
-                Info@yemitradingllc.com
+                {contactData.contact.length > 0 &&
+                contactData.contact[0]?.emailAddress
+                  ? contactData.contact[0]?.emailAddress
+                  : `Info@yemitradingllc.com`}
               </Text>
             </Card>
           </Grid.Col>
@@ -94,7 +120,10 @@ const Contact = () => {
                 <Space />
               </Stack>
               <Text size="md" c="dimmed" ta={"center"}>
-                Mai Tower, Office 602, Dubai, UAE
+                {contactData.contact.length > 0 &&
+                contactData.contact[0]?.officeFullAddress
+                  ? contactData.contact[0]?.officeFullAddress
+                  : `Mai Tower, Office 602, Dubai, UAE`}
               </Text>
             </Card>
           </Grid.Col>
@@ -110,18 +139,13 @@ const Contact = () => {
       >
         <Grid grow pb={30}>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card
-              shadow="sm"
-              padding="xl"
-              component="a"
-              target="_blank"
-            >
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
               <Card.Section></Card.Section>
 
               <Text fw={500} size="lg" mt="md">
                 Contuct Form
               </Text>
-              <form onSubmit={form.onSubmit((values) => console.log(values))}>
+              <form onSubmit={form.onSubmit(handleSubmit)}>
                 <TextInput
                   withAsterisk
                   label="Name"
@@ -167,17 +191,16 @@ const Contact = () => {
               shadow="sm"
               padding="xl"
               component="a"
-            href="https://www.google.com/maps/place/Mai+Tower+-+Al+Qusais+-+Al+Nahda+1+-+Dubai+-+United+Arab+Emirates/@25.2879745,55.3650455,21z/data=!4m15!1m8!3m7!1s0x3e5f5c641d5a9e2f:0x9e2a1fef589bd3b0!2sMai+Tower+-+Al+Qusais+-+Al+Nahda+1+-+Dubai+-+United+Arab+Emirates!3b1!8m2!3d25.2879542!4d55.3652105!16s%2Fg%2F1hjh3xv8x!3m5!1s0x3e5f5c641d5a9e2f:0x9e2a1fef589bd3b0!8m2!3d25.2879542!4d55.3652105!16s%2Fg%2F1hjh3xv8x?entry=ttu&g_ep=EgoyMDI0MTExMy4xIKXMDSoASAFQAw%3D%3D"
-
+              href="https://www.google.com/maps/place/Mai+Tower+-+Al+Qusais+-+Al+Nahda+1+-+Dubai+-+United+Arab+Emirates/@25.2879745,55.3650455,21z/data=!4m15!1m8!3m7!1s0x3e5f5c641d5a9e2f:0x9e2a1fef589bd3b0!2sMai+Tower+-+Al+Qusais+-+Al+Nahda+1+-+Dubai+-+United+Arab+Emirates!3b1!8m2!3d25.2879542!4d55.3652105!16s%2Fg%2F1hjh3xv8x!3m5!1s0x3e5f5c641d5a9e2f:0x9e2a1fef589bd3b0!8m2!3d25.2879542!4d55.3652105!16s%2Fg%2F1hjh3xv8x?entry=ttu&g_ep=EgoyMDI0MTExMy4xIKXMDSoASAFQAw%3D%3D"
               target="_blank"
             >
               <Card.Section>
-                  <Image
-                    src={map}
-                    h={160}
-                    alt="No way!"
-                    style={{ objectFit: "contain" }}
-                  />
+                <Image
+                  src={map}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
               </Card.Section>
             </Card>
           </Grid.Col>
@@ -188,3 +211,6 @@ const Contact = () => {
 };
 
 export default Contact;
+
+
+

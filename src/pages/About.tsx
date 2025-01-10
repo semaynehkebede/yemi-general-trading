@@ -1,31 +1,44 @@
 import {
-  Button,
   Card,
   Container,
   Divider,
-  Flex,
   Grid,
   Group,
   Image,
   Title,
   Text,
-  Overlay,
   Space,
 } from "@mantine/core";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import kidneybeans from "../assets/image/kidneybeans.jpg"; // Import the image
-import pules from "../assets/image/pulses.jpg"; // Import the image
-import multiple from "../assets/image/allimage.jpg"; // Import the image
-import home2 from "../assets/image/home4.jpg"; // Import the image
-import sinotruck from "../assets/image/sino3.jpg"; // Import the image
 import sinotrack from "../assets/image/sinotrack.png"; // Import the image
-import miningproduct from "../assets/image/miningproduct.jpg"; // Import the image
 import coffee from "../assets/image/c1.webp"; // Import the image
 import avatoor2 from "../assets/image/avator2.jpg"; // Import the image
 import avatoor1 from "../assets/image/avatoor1.jpg"; // Import the image
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { RootState } from "../app/store";
+import { fetchContentThunk } from "../features/contentSlice";
 
 const About = () => {
+  const dispatch = useAppDispatch();
+
+  const aboutData = useAppSelector((state: RootState) => state.aboutContent);
+  const aboutOnHome = aboutData.aboutContent.filter(
+    (data: any) => data.display_place === "about"
+  );
+  const contents = useAppSelector((state: RootState) => state.content.content);
+  const aboutContents = contents.filter(
+    (content: any) =>
+      content.content_type === "ABOUT" && content.display_place === "ABOUT"
+  );
+  useEffect(() => {
+    dispatch(fetchContentThunk());
+    console.log("a content", contents);
+  }, []);
+  console.log("a out effect cntent", contents);
+  console.log("aboutContents cntent", aboutContents);
+
+  console.log("YUYUYU", aboutContents, status);
   const [homeImageHovered, setHomeImageHovered] = useState(false);
   return (
     <>
@@ -101,44 +114,40 @@ const About = () => {
         </Title>
         <Grid grow pb={30}>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }} pb={20}>
-          <Card
-              shadow="sm"
-              padding="xl"
-              component="a"
-              target="_blank"
-            >
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
               <Card.Section>
-              <Image
-                src={coffee} // Replace with your image URL
-                alt="Full-screen"
-                style={{
-                  objectFit: "cover", // Still cover but with max width/height
-                  width: "100%", // Ensure it spans the full width
-                  height: "100%", // Ensure it spans the full height
-                  display: "block",
-                  transition: "filter 0.3s ease",
-                }}
-              />
+                <Image
+                  src={
+                    aboutOnHome.length > 0 && aboutOnHome[0]?.image
+                      ? `data:image/png;base64,${aboutOnHome[0].image}`
+                      : coffee
+                  }
+                  alt={
+                    aboutOnHome.length > 0 && aboutOnHome[0]?.file_name
+                      ? aboutOnHome[0].file_name
+                      : "About We..."
+                  }
+                  // src={coffee} // Replace with your image URL
+                  style={{
+                    objectFit: "cover", // Still cover but with max width/height
+                    width: "100%", // Ensure it spans the full width
+                    height: "100%", // Ensure it spans the full height
+                    display: "block",
+                    transition: "filter 0.3s ease",
+                  }}
+                />
               </Card.Section>
             </Card>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" radius="md" withBorder>
-              <Group justify="space-between" mt="xs" mb="xs">
-                <Text fw={500} fz={22}>
-                  About Us
-                </Text>
+          <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
+              <Group justify="center" mb="xs">
+                <Text fw={500} size="20px" c={'#8B0000'}>About Us</Text>
               </Group>
-
-              <Text size="mD" c="dimmed">
-                YEMI General Trading L.L.C. was Founded on June 25, 2022, in
-                Dubai, UAE, Y E M I GENERAL TRADING L.L.C. is a dedicated
-                provider of world-class import and export solutions. Our
-                extensive services include trading, commissioning, civil works,
-                and brokerage, aimed at empowering businesses by connecting them
-                with global opportunities. We specialize in delivering
-                high-quality products and tailored trade solutions to meet
-                diverse client needs worldwide.
+              <Text size="16px" style={{lineHeight: 2}} mt={3}>
+                {aboutOnHome.length > 0
+                  ? aboutOnHome[0].description ?? aboutOnHome[0].description
+                  : "YEMI GENERAL TRADING L.L.C. Founded on June 25, 2022, in Dubai, UAE, Y E M I GENERAL TRADING L.L.C. is a dedicated provider of world-class import and export solutions. Our extensive services include trading, commissioning, civil works, and brokerage, aimed at empowering businesses by connecting them with global opportunities. We specialize in delivering high-quality products and tailored trade solutions to meet diverse client needs worldwide."}
               </Text>
             </Card>
           </Grid.Col>
@@ -167,88 +176,82 @@ const About = () => {
         </Title>
         <Grid grow pb={30}>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card
-              shadow="sm"
-              padding="xl"
-              component="a"
-              target="_blank"
-            >
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
               <Card.Section>
-                <Image src={avatoor1} h={160} alt="No way!" style={{objectFit: 'contain'}}/>
+                <Image
+                  src={avatoor1}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
               </Card.Section>
 
               <Text fw={500} size="lg" mt="md">
-                You&apos;ve won a million dollars in cash!
+                Ms. Senait Mogess
               </Text>
 
               <Text mt="xs" c="dimmed" size="sm">
-                Please click anywhere on this card to claim your reward, this is
-                not a fraud, trust us
+                Product Manager
               </Text>
             </Card>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card
-              shadow="sm"
-              padding="xl"
-              component="a"
-              target="_blank"
-            >
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
               <Card.Section>
-                <Image src={avatoor2} h={160} alt="No way!" style={{objectFit: 'contain'}}/>
+                <Image
+                  src={avatoor2}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
               </Card.Section>
 
               <Text fw={500} size="lg" mt="md">
-                You&apos;ve won a million dollars in cash!
+                Dr. Biniam...
               </Text>
 
               <Text mt="xs" c="dimmed" size="sm">
-                Please click anywhere on this card to claim your reward, this is
-                not a fraud, trust us
-              </Text>
-            </Card>
-          </Grid.Col>
-        </Grid>
-        <Grid grow pb={30}>
-          <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card
-              shadow="sm"
-              padding="xl"
-              component="a"
-              target="_blank"
-            >
-              <Card.Section>
-                <Image src={avatoor2} h={160} alt="No way!" style={{objectFit: 'contain'}}/>
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                You&apos;ve won a million dollars in cash!
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                Please click anywhere on this card to claim your reward, this is
-                not a fraud, trust us
+                CEO of our company
               </Text>
             </Card>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card
-              shadow="sm"
-              padding="xl"
-              component="a"
-              target="_blank"
-            >
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
               <Card.Section>
-                <Image src={avatoor1} h={160} alt="No way!" style={{objectFit: 'contain'}}/>
+                <Image
+                  src={avatoor2}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
               </Card.Section>
 
               <Text fw={500} size="lg" mt="md">
-                You&apos;ve won a million dollars in cash!
+                Dr. Alazar Danel...
               </Text>
 
               <Text mt="xs" c="dimmed" size="sm">
-                Please click anywhere on this card to claim your reward, this is
-                not a fraud, trust us
+              Senior Manager
+              </Text>
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
+              <Card.Section>
+                <Image
+                  src={avatoor1}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
+              </Card.Section>
+
+              <Text fw={500} size="lg" mt="md">
+                Mr Abebe...
+              </Text>
+
+              <Text mt="xs" c="dimmed" size="sm">
+                Consultant
               </Text>
             </Card>
           </Grid.Col>

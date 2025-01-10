@@ -1,14 +1,15 @@
-import { Card, Container, Grid, Space, Stack, Text } from '@mantine/core'
-import React from 'react'
-import { FaPhone } from 'react-icons/fa'
-import { PiBuilding } from 'react-icons/pi'
-import { TfiEmail } from 'react-icons/tfi'
-
+import {
+  Group,
+  Title,
+} from "@mantine/core";
 const Footer = () => {
   return (
-    <>
-    </>
-  )
-}
+    <Group justify="center" align="center">
+      <Title ta={"center"} order={3} size={'16px'}>
+        Copyright © YEMI General Trading plc 2024
+      </Title>
+    </Group>
+  );
+};
 
-export default Footer
+export default Footer;

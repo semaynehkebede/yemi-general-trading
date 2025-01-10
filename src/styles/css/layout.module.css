@@ -53,3 +53,9 @@
   width: rem(25px);
   height: rem(25px);
 }
+
+.link[data-active="true"],
+.link.active {
+  color: red;
+  font-weight: bold;
+}

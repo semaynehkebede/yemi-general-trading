@@ -5,67 +5,156 @@ import {
   Group,
   Menu,
   Text,
+  Avatar,
 } from "@mantine/core";
 import cx from "clsx";
 import classes from "../styles/css/layout.module.css";
 import { CiDark, CiLight } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-const data = [
+import { logout } from "../features/loginSlice";
+import { useAppDispatch } from "../hooks/hooks";
+import { MdLogout, MdSettings } from "react-icons/md";
+import { useDisclosure } from "@mantine/hooks";
+
+// Define the public and private routes
+const publicData = [
   { link: "/home", label: "Home" },
   { link: "/service", label: "Service" },
   { link: "/about", label: "About" },
   { link: "/contact", label: "Contact" },
 ];
 
+// Define private routes (only available for logged-in users)
+const privateData = [
+  { link: "/manage/employee", label: "Employee" },
+  { link: "/manage/content", label: "Content" },
+];
+
 export const Header = () => {
+  const dispatch = useAppDispatch();
+  const [opened, { toggle }] = useDisclosure();
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
+
   const current_url = window.location.pathname.replace("/", "");
-  var reload_index = data.findIndex((item) => item.link === current_url);
+  // var reload_index = data.findIndex((item) => item.link === current_url);
+  const reload_index = publicData.findIndex(
+    (item) => item.link === `/${current_url}`
+  );
+  const [active, setActive] = useState(reload_index !== -1 ? reload_index : 0);
+  // const [active, setActive] = useState(reload_index);
+  const navigate = useNavigate(); // Navigate object for navigation
 
-  const [active, setActive] = useState(reload_index);
+  // Dynamically fetch the user data from localStorage
+  const logUser = localStorage.getItem("userInfo") || "{}";
+  const userData = logUser ? JSON.parse(logUser) : null;
 
-  const links = data.map((item, index) => (
+  // Logout and Settings Handlers
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    dispatch(logout());
+    navigate("/");
+  };
+
+  const publicLinks = publicData.map((item, index) => (
     <UnstyledButton
-      className={classes.link}
+      key={index}
       data-active={index === active || undefined}
+      className={cx(classes.link, {
+        [classes.active]: index === active, // Add active class for styling
+      })}
       component={Link}
-      variant="link"
       to={item.link}
       onClick={(event) => {
         setActive(index);
+        if (window.innerWidth <= 768) {
+          // Check if the screen width is small
+          toggle(); // Close the navbar on small screens
+        }
       }}
-    >{item.label}
+      variant="link"
+    >
+      {item.label}
     </UnstyledButton>
   ));
+
+  const privateLinks =
+    userData?.role === true
+      ? privateData.map((item, index) => (
+          <UnstyledButton
+            key={index}
+            className={classes.link}
+            component={Link}
+            to={item.link}
+            variant="link"
+          >
+            {item.label}
+          </UnstyledButton>
+        ))
+      : null;
+
   return (
     <Group ml="xl" gap={0} visibleFrom="sm">
-      {/* New Dropdown Button for Register */}
-      <Menu withArrow>
-        <Menu.Target>
-          <UnstyledButton className={classes.link}>
-            <Text fw={500}>Manage</Text>
-          </UnstyledButton>
-        </Menu.Target>
-        <Menu.Dropdown>
-          <Menu.Item
-            component={Link}
-            to="/manage/employee"
-          >
-            Employee
-          </Menu.Item>
-          <Menu.Item
-            component={Link}
-            to="/manage/content"
-          >
-            Content
-          </Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
-      {links}
+      {userData?.role === true && (
+        <Menu withArrow>
+          <Menu.Target>
+            <UnstyledButton className={classes.link}>
+              <Text fw={500}>Manage</Text>
+            </UnstyledButton>
+          </Menu.Target>
+          <Menu.Dropdown bg={"cyan"}>{privateLinks}</Menu.Dropdown>
+        </Menu>
+      )}
+
+      {/* Render the public links */}
+      {publicLinks}
+
+      {userData?.role === true ? (
+        <Menu withArrow position="bottom">
+          <Menu.Target>
+            <UnstyledButton className={classes.link}
+             styles={{
+              root: {
+                display: "flex",
+                alignItems: "center",
+                gap: "5px", // Add spacing between Avatar and text
+              },
+            }}>
+              {userData?.userName}
+              <Avatar 
+              color="white" // Set the background color to white
+              radius="xl"
+              styles={(theme) => ({
+                root: {
+                  backgroundColor: theme.white,
+                  color: theme.colors.dark[9], // Set text color to dark for contrast
+                  border: `1px solid ${theme.colors.gray[3]}`, // Optional: add a border
+                },
+              })}/>
+            </UnstyledButton>
+          </Menu.Target>
+          <Menu.Dropdown bg={"cyan"}>
+            <Menu.Item
+              leftSection={<MdSettings size={16} />}
+            >
+              Settings
+            </Menu.Item>
+            <Menu.Item
+              leftSection={<MdLogout size={16} />}
+              onClick={handleLogout}
+              // color="red"
+              
+            >
+              Logout
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      ) : (
+        ""
+      )}
       <UnstyledButton
         onClick={() =>
           setColorScheme(computedColorScheme === "light" ? "dark" : "light")
