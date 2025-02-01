@@ -20,8 +20,9 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import logo from "../assets/image/logo71.png";
 import { MdSettings, MdLogout } from "react-icons/md";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { logout } from "../features/loginSlice";
+import { RootState } from "../app/store";
 const data = [
   { link: "/home", label: "Home" },
   { link: "/service", label: "Service" },
@@ -35,6 +36,7 @@ export const Layout = () => {
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
+  const contactData = useAppSelector((state: RootState) => state.contactData);
 
   const current_url = window.location.pathname.replace("/", "");
   // var reload_index = data.findIndex((item) => item.link === current_url);
@@ -98,7 +100,8 @@ export const Layout = () => {
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group justify="space-between" style={{ flex: 1 }}>
             <Image src={logo} width={60} h={60} />
-            <Text>YEMI General Trading LLC</Text>
+            {contactData.contact.company_name}
+            <Text></Text>
 
             <Header />
           </Group>

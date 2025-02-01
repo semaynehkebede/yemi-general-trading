@@ -18,8 +18,9 @@ export const createContent = async (content: Content) => {
 export const updateContent = async (content: any) => {
   const id = content.get("id"); // Get single field
   const update_api = `${import.meta.env.VITE_API_URL}${contentApi}${id}/`;
-  console.log("update", update_api);
-  return await axios.patch(update_api, content);
+  console.log("update base url", update_api);
+  const response = await api.patch(update_api, content); 
+  return response;
 };
 
 export const deleteContent = async (id: string) => {
@@ -67,7 +68,7 @@ export const createContentAction = createAsyncThunk(
 export const updateContentAction = createAsyncThunk(
   "contents/updateContents",
   async (data: any) => {
-    console.log("up", data);
+    console.log("up on thunk", data);
 
     const response = await updateContent(data);
     return response.data;

@@ -18,14 +18,21 @@ import {
 import { useForm } from "@mantine/form";
 import coffee from "../assets/image/c1.webp"; // Import the image
 import map from "../assets/image/map.png"; // Import the image
+import avatoor2 from "../assets/image/avator2.jpg"; // Import the image
+import avatoor1 from "../assets/image/avatoor1.jpg"; // Import the image
 import { FaPhone } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { PiBuilding } from "react-icons/pi";
 import { useAppSelector } from "../hooks/hooks";
 import { RootState } from "../app/store";
+import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import toast from "react-hot-toast";
 
 const Contact = () => {
   const contactData = useAppSelector((state: RootState) => state.contactData);
+  const sliderImage = useAppSelector((state: RootState) => state.imageContent);
+  const contactImage = sliderImage.image  .filter((image: any) => image.image_type === "contact")[0]?.image || coffee;
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -37,8 +44,6 @@ const Contact = () => {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
-
-
   const handleSubmit = (values: any) => {
       // const created_by = "Admin";
       // // Create FormData object
@@ -66,7 +71,7 @@ const Contact = () => {
           width: "100%", // full viewport width
           // height: "100vh", // adjust height as needed
           overflow: "hidden", // hide any overflow
-          backgroundImage: `url(${coffee})`, // replace with your image variable or URL
+          backgroundImage: `url(${contactImage})`, // replace with your image variable or URL
           backgroundSize: "cover", // makes the image cover the entire container
           backgroundPosition: "center", // centers the image
           backgroundRepeat: "no-repeat", // prevents the image from repeating
@@ -129,6 +134,111 @@ const Contact = () => {
           </Grid.Col>
         </Grid>
       </Container>
+      
+      <Container
+        mt={42}
+        fluid
+        style={{
+          width: "100%", // full viewport width
+          overflow: "hidden", // hide any overflow>
+        }}
+      >
+        <Title ta={"center"} order={2} mt="sm" mb="sm">
+          <Divider
+            my="xl"
+            label={
+              <Text size="xl" color="red" fw={800} fz={26}>
+                Contact Our Workers
+              </Text>
+            }
+            labelPosition="center"
+            color="red"
+            size="md"
+          />
+        </Title>
+        <Grid grow pb={30}>
+          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
+              <Card.Section>
+                <Image
+                  src={avatoor1}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
+              </Card.Section>
+
+              <Text fw={500} size="lg" mt="md">
+                Ms. Senait Mogess
+              </Text>
+
+              <Text mt="xs" c="dimmed" size="sm">
+                Product Manager
+              </Text>
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
+              <Card.Section>
+                <Image
+                  src={avatoor2}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
+              </Card.Section>
+
+              <Text fw={500} size="lg" mt="md">
+                Dr. Biniam...
+              </Text>
+
+              <Text mt="xs" c="dimmed" size="sm">
+                CEO of our company
+              </Text>
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
+              <Card.Section>
+                <Image
+                  src={avatoor2}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
+              </Card.Section>
+
+              <Text fw={500} size="lg" mt="md">
+                Dr. Alazar Danel...
+              </Text>
+
+              <Text mt="xs" c="dimmed" size="sm">
+              Senior Manager
+              </Text>
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
+            <Card shadow="sm" padding="xl" component="a" target="_blank">
+              <Card.Section>
+                <Image
+                  src={avatoor1}
+                  h={160}
+                  alt="No way!"
+                  style={{ objectFit: "contain" }}
+                />
+              </Card.Section>
+
+              <Text fw={500} size="lg" mt="md">
+                Mr Abebe...
+              </Text>
+
+              <Text mt="xs" c="dimmed" size="sm">
+                Consultant
+              </Text>
+            </Card>
+          </Grid.Col>
+        </Grid>
+      </Container>
       <Container
         mt={42}
         style={{
@@ -143,7 +253,7 @@ const Contact = () => {
               <Card.Section></Card.Section>
 
               <Text fw={500} size="lg" mt="md">
-                Contuct Form
+                Contact Form
               </Text>
               <form onSubmit={form.onSubmit(handleSubmit)}>
                 <TextInput
@@ -152,6 +262,12 @@ const Contact = () => {
                   placeholder="your name"
                   key={form.key("name")}
                   {...form.getInputProps("name")}
+                  readOnly
+                  onFocus={() => toast.error(  `Please send your idea:-  ${
+                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
+                      ? contactData.contact[0]?.emailAddress
+                      : "Info@yemitradingllc.com"
+                  }`)}
                 />
                 <TextInput
                   withAsterisk
@@ -159,6 +275,12 @@ const Contact = () => {
                   placeholder="your@email.com"
                   key={form.key("email")}
                   {...form.getInputProps("email")}
+                  readOnly
+                  onFocus={() => toast.error(  `Please send your idea:-  ${
+                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
+                      ? contactData.contact[0]?.emailAddress
+                      : "Info@yemitradingllc.com"
+                  }`)}
                 />
                 <TextInput
                   withAsterisk
@@ -166,6 +288,12 @@ const Contact = () => {
                   placeholder="your phone number"
                   key={form.key("Phone")}
                   {...form.getInputProps("Phone")}
+                  readOnly
+                  onFocus={() => toast.error(  `Please send your idea:-  ${
+                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
+                      ? contactData.contact[0]?.emailAddress
+                      : "Info@yemitradingllc.com"
+                  }`)}
                 />
                 <TextInput
                   withAsterisk
@@ -173,15 +301,27 @@ const Contact = () => {
                   placeholder="Subject"
                   key={form.key("subject")}
                   {...form.getInputProps("subject")}
+                  readOnly
+                  onFocus={() => toast.error(  `Please send your idea:-  ${
+                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
+                      ? contactData.contact[0]?.emailAddress
+                      : "Info@yemitradingllc.com"
+                  }`)}
                 />
                 <Textarea
                   mt="md"
                   label="With your message"
                   placeholder="Write your message"
                   error="Invalid name"
+                  readOnly
+                  onFocus={() => toast.error(  `Please send your idea:-  ${
+                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
+                      ? contactData.contact[0]?.emailAddress
+                      : "Info@yemitradingllc.com"
+                  }`)}
                 />
                 <Group justify="flex-end" mt="md">
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit" disabled>Submit</Button>
                 </Group>
               </form>
             </Card>

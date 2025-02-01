@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { AboutInput, AboutOutput, AboutState } from "../types/contentType";
-import { createAboutConUrl, deleteAboutConUrl, viewAboutUrl } from "../api/endPoint";
+import {
+  createAboutConUrl,
+  deleteAboutConUrl,
+  updateAboutConUrl,
+  viewAboutUrl,
+} from "../api/endPoint";
 import { RootState } from "../app/store";
 import api from "../configuration/axios";
 import axios from "axios";
@@ -17,18 +22,21 @@ export const updateAboutContent = async (aboutCon: any) => {
   const id = aboutCon.get("id"); // Get single field
   const updateAboutCon_api = `${
     import.meta.env.VITE_API_URL
-  }${createAboutConUrl}${id}/`;
+  }${updateAboutConUrl}${id}/`;
   console.log("update", updateAboutCon_api);
-  return await api.patch(updateAboutCon_api, aboutCon);
+  const response = await api.patch(updateAboutCon_api, aboutCon);
+  return response;
 };
 
 export const deleteAboutContent = async (id: string) => {
+  console.log("deleted data", id);
   const deleteAboutCon_api = `${
     import.meta.env.VITE_API_URL
   }${deleteAboutConUrl}${id}/`;
-  console.log(deleteAboutCon_api, await api.delete(deleteAboutCon_api));
-  await api.delete(deleteAboutCon_api);
-  return id;
+  console.log("url", deleteAboutCon_api);
+  const response = await api.delete(deleteAboutCon_api);
+  console.log("res", response.data);
+  return response;
 };
 
 // Initial state
@@ -70,9 +78,10 @@ export const updateAboutAction = createAsyncThunk(
 export const deleteAboutAction = createAsyncThunk(
   "about/deleteAbouts",
   async (id: string) => {
+    console.log("on action");
+    
     const response = await deleteAboutContent(id);
-    console.log("on asynch", id);
-    return id;
+    return response.data;
   }
 );
 // Slice

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ImageInput, ImageOutput, ImageState } from "../types/contentType";
-import { createImageApi, deleteImageApi, viewImageApi } from "../api/endPoint";
+import { createImageApi, deleteImageApi, updateImageApi, viewImageApi } from "../api/endPoint";
 import { RootState } from "../app/store";
 import api from "../configuration/axios";
 
@@ -10,9 +10,7 @@ export const createImage = async (image: ImageInput) => {
   console.log("on function", image);
   const api_url = `${import.meta.env.VITE_API_URL}${createImageApi}`;
   console.log(api_url);
-  const response = await api.post(api_url, image);
-  console.log("after create", response.data);
-  
+  const response = await api.post(api_url, image);  
   return response;
 };
 
@@ -20,9 +18,10 @@ export const updateImage = async (image: any) => {
   const id = image.get("id"); // Get single field
   const updateImage_api = `${
     import.meta.env.VITE_API_URL
-  }${createImageApi}${id}/`;
+  }${updateImageApi}${id}/`;
   console.log("update", updateImage_api);
-  return await axios.patch(updateImage_api, image);
+  const response = await api.patch(updateImage_api, image);
+  return response;
 };
 
 export const deleteImage = async (id: string) => {
@@ -31,7 +30,7 @@ export const deleteImage = async (id: string) => {
     import.meta.env.VITE_API_URL
   }${deleteImageApi}${id}/`;
   console.log("url", deleteImage_api);
-  const response = await axios.delete(deleteImage_api);
+  const response = await api.delete(deleteImage_api);
   console.log("res", response.data);
   return response;
 };

@@ -11,12 +11,13 @@ import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { createImageAction } from "../../features/imageSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { Notification, rem } from "@mantine/core";
 import { RootState } from "../../app/store";
+import { toast } from "react-hot-toast"; // Import toast notification library
 
 type createSliderProps = {
   onClose: (isOpened: boolean) => void;
 };
+
 const SliderImage = (props: createSliderProps) => {
   const dispatch = useAppDispatch();
   const sliderImage = useAppSelector((state: RootState) => state.imageContent);
@@ -44,7 +45,7 @@ const SliderImage = (props: createSliderProps) => {
       ? []
       : [{ value: "contact", label: "Contact" }]),
   ];
-  // Form validation
+
   const form = useForm({
     initialValues: {
       image_type: "",
@@ -54,9 +55,9 @@ const SliderImage = (props: createSliderProps) => {
 
     validate: {
       image_type: (value) =>
-        value.length < 2 ? "Description must required" : null,
+        value.length < 2 ? "Description is required" : null,
       description: (value) =>
-        value.length < 2 ? "Description must required" : null,
+        value.length < 2 ? "Description is required" : null,
     },
   });
 
@@ -64,30 +65,20 @@ const SliderImage = (props: createSliderProps) => {
 
   const handleSubmit = async (values: any) => {
     const created_by = "Admin";
-    // Create FormData object
     const formData = new FormData();
     formData.append("image_type", values.image_type);
     formData.append("description", values.description);
     formData.append("created_by", created_by);
     if (values.image) {
-      formData.append("image", values.image); // File object
+      formData.append("image", values.image);
     }
 
     try {
-      // Dispatch the action
-      await dispatch(createImageAction(formData)).unwrap(); // Assuming the action is asynchronous and returns a promise
-      // Show success notification
-      <Notification color="green" title="Success">
-        You saved successfully!"
-      </Notification>;
-
-      // Close the modal
-      props.onClose(false);
+      await dispatch(createImageAction(formData)).unwrap();
+      toast.success("Image saved successfully!"); // Show success notification
+      props.onClose(false); // Close the modal
     } catch (error) {
-      // Show error notification
-      <Notification color="red" title="Error">
-        Failed to save. Please try again!"
-      </Notification>;
+      toast.error("Failed to save image. Please try again!"); // Show error notification
     }
   };
 
@@ -150,4 +141,5 @@ const SliderImage = (props: createSliderProps) => {
     </>
   );
 };
+
 export default SliderImage;

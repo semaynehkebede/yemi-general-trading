@@ -56,6 +56,7 @@ interface ServiceOutput {
   image: string;
 }
 interface ContactInput {
+  companyName: string;
   emailAddress: string;
   phoneNumber: string;
   officeFullAddress: string;
@@ -64,6 +65,7 @@ interface ContactInput {
 }
 interface ContactOutput {
   id: string;
+  companyName: string;
   emailAddress: string;
   phoneNumber: string;
   officeFullAddress: string;
@@ -87,10 +89,10 @@ interface Content {
 }
 interface ContentResponse {
   id: string;
-  content_name: string;
+  service_name: string;
   description: string;
   display_place: string;
-  content_type: string;
+  service_type: string;
   file_name: string;
   file_path: string;
   file_type: string;

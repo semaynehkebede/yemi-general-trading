@@ -7,7 +7,7 @@ import {Credentials} from "../types/contentType"
 
 // import { api } from "../../configuration/AxiosConfig";
 
-const initialState: LoginState = {
+const initialState: LognState = {
     currentUser: JSON.parse(localStorage.getItem('userInfo') || 'null'),
     loading: false,
     error: null
@@ -18,6 +18,7 @@ export const login = createAsyncThunk<User, Credentials>(
     async (credentials: Credentials, thunkAPI) => {
         try {
             const api_url = `${import.meta.env.VITE_API_URL}${loginUrl}`;
+            console.log("url", api_url);
             // return await api.post(endPoint.login, data);
           const response = await axios.post(api_url, credentials);
           console.log(response.data);

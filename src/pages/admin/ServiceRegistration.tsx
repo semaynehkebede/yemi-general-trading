@@ -12,6 +12,7 @@ import { useForm } from "@mantine/form";
 import React, { useState } from "react";
 import { createServiceAction } from "../../features/serviceSlice";
 import { useAppDispatch } from "../../hooks/hooks";
+import toast from "react-hot-toast";
 
 type createUserProps = {
   onClose: (isOpened: boolean) => void;
@@ -58,7 +59,7 @@ const ServiceRegistration = (props: createUserProps) => {
 
   const [preview, setPreview] = useState<string | null>(null);
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     const created_by = "Admin";
     // Create FormData object
     const formData = new FormData();
@@ -71,11 +72,13 @@ const ServiceRegistration = (props: createUserProps) => {
     if (values.image) {
       formData.append("image", values.image); // File object
     }
-
-    console.log("Submitting form data:", [...formData.entries()]);
-    // Dispatch the action (createContentAction should support FormData)
-    dispatch(createServiceAction(formData));
-    props.onClose(true);
+    try {
+      await dispatch(createServiceAction(formData)).unwrap();
+      toast.success("Image saved successfully!"); // Show success notification
+      props.onClose(false); // Close the modal
+    } catch (error) {
+      toast.error("Failed to save image. Please try again!"); // Show error notification
+    }
   };
 
   const handleImageChange = (file: File | null) => {

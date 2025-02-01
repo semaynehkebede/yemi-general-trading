@@ -55,6 +55,8 @@ const Login = () => {
   // };
 
   const handleSubmit = async (values: Credentials) => {
+    console.log("form", values);
+    
     const resultAction = await dispatch(login(values));
     if (login.rejected.match(resultAction)) {
       const apiError = resultAction.payload as string;
@@ -68,7 +70,7 @@ const Login = () => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Login" // Title of the modal
+        title="Login Page" // Title of the modal
         centered // Centers the modal
       >
         <form onSubmit={form.onSubmit(handleSubmit)}>

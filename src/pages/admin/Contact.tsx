@@ -9,14 +9,19 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { createContactAction } from "../../features/contactSlice";
+import { useAppDispatch } from "../../hooks/hooks";
 
 type createContactProps = {
   onClose: (isOpened: boolean) => void;
 };
 const Contact = (props: createContactProps) => {
+    const dispatch = useAppDispatch();
   // Form validation
   const form = useForm({
     initialValues: {
+      companyName: "",
       emailAddress: "",
       phoneNumber: "",
       officeFullAddress: "",
@@ -25,6 +30,8 @@ const Contact = (props: createContactProps) => {
     },
 
     validate: {
+      companyName: (value) => 
+        value.length < 2 ? "You must provide organization name" : null,
       emailAddress: (value) =>
         value.length < 2 ? "Description must required" : null,
       phoneNumber: (value) =>
@@ -38,10 +45,11 @@ const Contact = (props: createContactProps) => {
 
   const [preview, setPreview] = useState<string | null>(null);
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     const created_by = "Admin";
     // Create FormData object
     const formData = new FormData();
+    formData.append("companyName", values.companyName);
     formData.append("emailAddress", values.emailAddress);
     formData.append("phoneNumber", values.phoneNumber);
     formData.append("officeFullAddress", values.officeFullAddress);
@@ -53,9 +61,14 @@ const Contact = (props: createContactProps) => {
     }
 
     console.log("Submitting form data:", [...formData.entries()]);
-    // Dispatch the action (createContentAction should support FormData)
-    // dispatch(createContentAction(formData));
-    props.onClose(true);
+
+    try {
+      await dispatch(createContactAction(formData)).unwrap();
+      toast.success("You saved successfully!"); // Show success notification
+      props.onClose(false); // Close the modal
+    } catch (error) {
+      toast.error("Failed to save. Please try again!"); // Show error notification
+    }
   };
 
   const handleImageChange = (file: File | null) => {
@@ -78,6 +91,13 @@ const Contact = (props: createContactProps) => {
       <Paper>
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Grid>
+          <Grid.Col span={{ base: 12, md: 12, lg: 12 }}>
+              <TextInput
+                label="Company Name"
+                key={form.key("companyName")}
+                {...form.getInputProps("companyName")}
+              />
+            </Grid.Col>
             <Grid.Col span={{ base: 12, md: 12, lg: 12 }}>
               <TextInput
                 label="Email Address"

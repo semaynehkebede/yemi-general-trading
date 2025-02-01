@@ -119,7 +119,7 @@ const About = () => {
                 <Image
                   src={
                     aboutOnHome.length > 0 && aboutOnHome[0]?.image
-                      ? `data:image/png;base64,${aboutOnHome[0].image}`
+                      ? aboutOnHome[0].image
                       : coffee
                   }
                   alt={
@@ -166,7 +166,7 @@ const About = () => {
             my="xl"
             label={
               <Text size="xl" color="red" fw={800} fz={26}>
-                Our Workers
+                Our Clients idea
               </Text>
             }
             labelPosition="center"
@@ -177,21 +177,24 @@ const About = () => {
         <Grid grow pb={30}>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
             <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
+              {/* <Card.Section>
                 <Image
                   src={avatoor1}
                   h={160}
                   alt="No way!"
                   style={{ objectFit: "contain" }}
                 />
-              </Card.Section>
+              </Card.Section> */}
 
               <Text fw={500} size="lg" mt="md">
                 Ms. Senait Mogess
               </Text>
 
               <Text mt="xs" c="dimmed" size="sm">
-                Product Manager
+                Product ManagerWorking with Abiy Masresha has been a game-changer for our projects. 
+                Their machinery is always well-maintained,
+                 and the staff is knowledgeable and responsive.
+                  We've built a strong, trustworthy relationship over the years.
               </Text>
             </Card>
           </Grid.Col>

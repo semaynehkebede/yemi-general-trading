@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  TextInput,
   Select,
   Textarea,
   FileInput,
@@ -9,38 +8,31 @@ import {
   Paper,
   Image,
 } from "@mantine/core";
-import axios from "axios";
-import { ContentResponse } from "../../types/contentType";
 import { useForm } from "@mantine/form";
-import { useAppDispatch } from "../../hooks/hooks";
-import { updateContentAction } from "../../features/contentSlice";
 import toast from "react-hot-toast";
-import { updateServiceAction } from "../../features/serviceSlice";
+import { AboutOutput } from "../../../types/contentType";
+import { useAppDispatch } from "../../../hooks/hooks";
+import { updateAboutAction } from "../../../features/aboutSlice";
 
-export interface UpdateContentProps {
-  selectedItem: ContentResponse;
+export interface UpdateAboutrProps {
+  selectedItem: AboutOutput;
   onClose: (isOpened: boolean) => void;
 }
 
-const ContentUpdate: React.FC<UpdateContentProps> = ({
+const AboutUpdate: React.FC<UpdateAboutrProps> = ({
   selectedItem,
   onClose,
 }) => {
   const dispatch = useAppDispatch();
-  console.log("update content", selectedItem);
-
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
   // Initialize form with selectedItem data
   const form = useForm({
     initialValues: {
-      service_name: selectedItem.service_name || "",
-      service_type: selectedItem.service_type || "",
-      // content_type: selectedItem.content_type || "",
-      display_place: selectedItem.display_place || "",
-      description: selectedItem.description || "",
-      image: null as File | null,
+        display_place: selectedItem.display_place || "",
+        description: selectedItem.description || "",
+        image: null as File | null,
     },
   });
 
@@ -71,8 +63,6 @@ const ContentUpdate: React.FC<UpdateContentProps> = ({
   // Handle form submission for updating content
   const handleSubmit = async (values: any) => {
     const formData = new FormData();
-    formData.append("service_name", values.service_name);
-    formData.append("service_type", values.service_type);
     formData.append("display_place", values.display_place);
     formData.append("description", values.description);
 
@@ -84,7 +74,7 @@ const ContentUpdate: React.FC<UpdateContentProps> = ({
 
     try {
     console.log("Submitting form data:", [...formData.entries()]);
-      await dispatch(updateServiceAction(formData)).unwrap();
+      await dispatch(updateAboutAction(formData)).unwrap();
       toast.success("Updated successfully!"); // Show success notification
       onClose(false); // Close the modal
     } catch (error) {
@@ -96,53 +86,25 @@ const ContentUpdate: React.FC<UpdateContentProps> = ({
     <Paper>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Grid>
-          {/* Content Name */}
-          <Grid.Col span={12}>
-            <TextInput
-              label="Service Name"
-              key={form.key("service_name")}
-              {...form.getInputProps("service_name")}
-            />
-          </Grid.Col>
-
           {/* Content Type */}
-          <Grid.Col span={12}>
-            <Select
-              label="Service Type"
-              key={form.key("service_type")}
-              data={[
-                {
-                  value: "EthiopianOriginExports",
-                  label: "Ethiopian Origin Exports",
-                },
-                {
-                  value: "GlobalImportstoEastAfrica",
-                  label: "Global Imports to East Africa",
-                },
-                {
-                  value: "ComprehensiveTradeServices",
-                  label: "Comprehensive Trade Services",
-                },
-                { value: "ABOUT", label: "About" },
-                { value: "LOCATION", label: "Location" },
-                { value: "OTHER", label: "Other" },
-              ]}
-              {...form.getInputProps("service_type")}
-            />
-          </Grid.Col>
-
-          {/* Display Place */}
           <Grid.Col span={12}>
             <Select
               label="Display Place"
               key={form.key("display_place")}
               data={[
-                { value: "home", label: "Home" },
-                { value: "service", label: "Service" },
+                {
+                  value: "home",
+                  label: "Home",
+                },
+                {
+                  value: "about",
+                  label: "About",
+                },
               ]}
               {...form.getInputProps("display_place")}
             />
           </Grid.Col>
+          
           {/* Description */}
           <Grid.Col span={12}>
             <Textarea
@@ -178,4 +140,4 @@ const ContentUpdate: React.FC<UpdateContentProps> = ({
   );
 };
 
-export default ContentUpdate;
+export default AboutUpdate

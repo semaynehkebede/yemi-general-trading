@@ -3,13 +3,15 @@ import axios from "axios";
 import { ContactInput, ContactOutput, ContactState } from "../types/contentType";
 import {createContactUrl, createServiceContUrl, deleteContactUrl, deleteServiceContUrl, viewContactUrl, viewServiceContUrl } from "../api/endPoint";
 import { RootState } from "../app/store";
+import api from "../configuration/axios";
 
 // Async thunk for saving content data
 export const createContact = async (contact: ContactInput) => {
   console.log("on function", contact);
   const api_url = `${import.meta.env.VITE_API_URL}${createContactUrl}`;
   console.log(api_url);
-  return await axios.post(api_url, contact);
+  const response = await api.post(api_url, contact);
+  return response
 };
 
 export const updateContact = async (contact: any) => {

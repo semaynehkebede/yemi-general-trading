@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ServiceInput, ServiceOutput, ServiceState } from "../types/contentType";
-import {createServiceContUrl, deleteServiceContUrl, viewServiceContUrl } from "../api/endPoint";
+import {createServiceContUrl, deleteServiceContUrl, updateServiceContUrl, viewServiceContUrl } from "../api/endPoint";
 import { RootState } from "../app/store";
 import api from "../configuration/axios";
 
@@ -10,25 +10,29 @@ export const createServiceContent = async (serviceCont: ServiceInput) => {
   console.log("on function", serviceCont);
   const api_url = `${import.meta.env.VITE_API_URL}${createServiceContUrl}`;
   console.log(api_url);
-  return await api.post(api_url, serviceCont);
+  const response = await api.post(api_url, serviceCont);  
+  return response;
 };
 
 export const updateServiceContent = async (serviceCont: any) => {
+  console.log('uytgyhghj', serviceCont);
   const id = serviceCont.get("id"); // Get single field
   const updateServiceCont_api = `${
     import.meta.env.VITE_API_URL
-  }${createServiceContUrl}${id}/`;
-  console.log("update", updateServiceCont_api);
-  return await api.patch(updateServiceCont_api, serviceCont);
+  }${updateServiceContUrl}${id}/`;
+  
+  console.log("update url", updateServiceCont_api, id);
+  const response = await api.patch(updateServiceCont_api, serviceCont);
+  return response;
 };
 
 export const deleteServiceContent = async (id: string) => {
   const deleteServiceCon_api = `${
     import.meta.env.VITE_API_URL
   }${deleteServiceContUrl}${id}/`;
-  console.log(deleteServiceCon_api, await api.delete(deleteServiceCon_api));
-  await api.delete(deleteServiceCon_api);
-  return id;
+  console.log("url", deleteServiceCon_api);
+  const response = await api.delete(deleteServiceCon_api);
+  return response;
 };
 
 // Initial state
@@ -61,7 +65,6 @@ export const updateServiceAction = createAsyncThunk(
   "service/updateServices",
   async (data: any) => {
     console.log("up", data);
-
     const response = await updateServiceContent(data);
     return response.data;
   }
@@ -69,11 +72,16 @@ export const updateServiceAction = createAsyncThunk(
 
 export const deleteServiceAction = createAsyncThunk(
   "service/deleteServices",
-  async (id: string) => {
-    const response = await deleteServiceContent(id);
-    console.log("on asynch", id);
-    return id;
-  }
+  async (id: string, { rejectWithValue }) => {
+      try {
+      const response = await deleteServiceContent(id);
+      console.log("on asy", response.data);
+      
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data); // Backend's error response
+    }
+    }
 );
 // Slice
 

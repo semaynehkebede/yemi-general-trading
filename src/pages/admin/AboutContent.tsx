@@ -3,6 +3,9 @@ import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { createAboutAction } from "../../features/aboutSlice";
 import { useAppDispatch } from "../../hooks/hooks";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { showNotification } from "@mantine/notifications";
+import toast from "react-hot-toast";
 
 type createUserProps = {
     onClose: (isOpened: boolean) => void;
@@ -32,7 +35,7 @@ type createUserProps = {
   
     const [preview, setPreview] = useState<string | null>(null);
   
-    const handleSubmit = (values: any) => {
+    const handleSubmit = async (values: any) => {
       const created_by = "Admin";
       const formData = new FormData();
       formData.append("description", values.description);
@@ -42,11 +45,14 @@ type createUserProps = {
       if (values.image) {
         formData.append("image", values.image); // File object
       }
-  
       console.log("Submitting form data:", [...formData.entries()]);
-      // Dispatch the action (createContentAction should support FormData)
-      dispatch(createAboutAction(formData));
-      props.onClose(true);
+      try {
+        await dispatch(createAboutAction(formData)).unwrap();
+        toast.success("Data saved successfully!"); // Show success notification
+        props.onClose(false); // Close the modal
+      } catch (error) {
+        toast.error("Failed to save Data. Please try again!"); // Show error notification
+      }
     };
   
     const handleImageChange = (file: File | null) => {

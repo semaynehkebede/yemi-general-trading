@@ -14,10 +14,8 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import home3 from "../assets/image/home3.jpg"; // Import the image
 import pules from "../assets/image/pulses.jpg"; // Import the image
 import multiple from "../assets/image/allimage.jpg"; // Import the image
-import home2 from "../assets/image/home4.jpg"; // Import the image
 import sinotruck from "../assets/image/sino3.jpg"; // Import the image
 import grain from "../assets/image/allitems.jpg"; // Import the image
 import miningproduct from "../assets/image/miningproduct.jpg"; // Import the image
@@ -83,11 +81,11 @@ const Home = () => {
 
   const slideImage1 =
     homeSliderImage.length > 0
-      ? `data:image/png;base64,${homeSliderImage[0].image}`
+      ? homeSliderImage[0].image
       : pules;
   const slideImage2 =
     homeSliderImage.length > 1
-      ? `data:image/png;base64,${homeSliderImage[1].image}`
+      ? homeSliderImage[1].image
       : sinotruck;
   const [homeImageHovered, setHomeImageHovered] = useState(false);
   return (
@@ -175,7 +173,7 @@ const Home = () => {
                 <Image
                   src={
                     aboutOnHome.length > 0 && aboutOnHome[0]?.image
-                      ? `data:image/png;base64,${aboutOnHome[0].image}`
+                      ? aboutOnHome[0].image
                       : multiple
                   }
                   alt={
@@ -253,7 +251,7 @@ const Home = () => {
                       <Image
                         src={
                           item?.image
-                            ? `data:image/png;base64,${item.image}`
+                            ? item.image
                             : excavator
                         }
                         alt={
@@ -358,7 +356,7 @@ const Home = () => {
                       <Image
                         src={
                           item?.image
-                            ? `data:image/png;base64,${item.image}`
+                            ? item.image
                             : excavator
                         }
                         alt={
@@ -476,7 +474,7 @@ const Home = () => {
                       <Image
                         src={
                           item?.image
-                            ? `data:image/png;base64,${item.image}`
+                            ? item.image
                             : consulting
                         }
                         alt={
@@ -574,7 +572,7 @@ const Home = () => {
                   src={
                     contactData.contact.length > 0 &&
                     contactData.contact[0]?.image
-                      ? `data:image/png;base64,${contactData.contact[0].image}`
+                      ? contactData.contact[0].image
                       : maitower
                   }
                   height={"auto"}

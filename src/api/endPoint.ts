@@ -2,14 +2,18 @@ const loginApi = "auth/login";
 const contentApi = "content/";  
 export const createImageApi = "image/create/"; 
 export const viewImageApi = "image/view"; 
-export const deleteImageApi = "image/delete/" 
+export const updateImageApi = "image/update/" ;
+export const deleteImageApi = "image/delete/" ;
+
 export const createAboutConUrl = "create/about/content/"; 
 export const deleteAboutConUrl = "delete/about/content/";
+export const updateAboutConUrl = "update/about/content/";
 export const viewAboutUrl = "view/about/content/";
 
 
 export const createServiceContUrl = "create/service/";
 export const viewServiceContUrl = "view/service/";
+export const updateServiceContUrl = "update/service/";
 export const deleteServiceContUrl = "delete/service/";
 
 export const viewContactUrl = "view/contact/"
