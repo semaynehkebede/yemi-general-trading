@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Badge,
+  Anchor,
   Button,
   Card,
   Container,
@@ -9,17 +9,18 @@ import {
   Grid,
   Group,
   Image,
-  Loader,
   Space,
+  Stack,
   Text,
   Title,
 } from "@mantine/core";
 import pules from "../assets/image/pulses.jpg"; // Import the image
+import loader from "../assets/image/loader.png"; // Import the image
+import sinotruk from "../assets/image/sino3.jpg"; // Import the image
 import multiple from "../assets/image/allimage.jpg"; // Import the image
 import sinotruck from "../assets/image/sino3.jpg"; // Import the image
-import grain from "../assets/image/allitems.jpg"; // Import the image
 import miningproduct from "../assets/image/miningproduct.jpg"; // Import the image
-import oilseed from "../assets/image/humerasesame.png"; // Import the image
+import hummeraoil from "../assets/image/hummeraoil.jpg"; 
 import excavator from "../assets/image/excavator.png"; // Import the image
 import dozer from "../assets/image/dozer.png"; // Import the image
 import crane from "../assets/image/crane1.jpg"; // Import the image
@@ -33,6 +34,15 @@ import { RootState } from "../app/store";
 import { fetchImageThunk } from "../features/imageSlice";
 import { fetchAboutThunk } from "../features/aboutSlice";
 import { fetchServiceThunk } from "../features/serviceSlice";
+import {
+  FaEnvelope,
+  FaFacebook,
+  FaInstagram,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaTwitter,
+} from "react-icons/fa";
+import CommonLink from "./CommonLink";
 const aboutyemi = `
 YEMI GENERAL TRADING L.L.C. Founded on June 25, 2022, in Dubai, UAE,
 Y E M I GENERAL TRADING L.L.C. is a dedicated provider of world-class import and export solutions. 
@@ -80,13 +90,9 @@ const Home = () => {
   console.log("a content", serviceData.serviceCont);
 
   const slideImage1 =
-    homeSliderImage.length > 0
-      ? homeSliderImage[0].image
-      : pules;
+    homeSliderImage.length > 0 ? homeSliderImage[0].image : pules;
   const slideImage2 =
-    homeSliderImage.length > 1
-      ? homeSliderImage[1].image
-      : sinotruck;
+    homeSliderImage.length > 1 ? homeSliderImage[1].image : sinotruck;
   const [homeImageHovered, setHomeImageHovered] = useState(false);
   return (
     <>
@@ -168,8 +174,15 @@ const Home = () => {
         </Title>
         <Grid grow>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-              <Card.Section component="a" h={'100%'}>
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              withBorder
+              h={"100%"}
+              mb={"12px"}
+            >
+              <Card.Section component="a" h={"100%"}>
                 <Image
                   src={
                     aboutOnHome.length > 0 && aboutOnHome[0]?.image
@@ -193,12 +206,21 @@ const Home = () => {
             </Card>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              withBorder
+              h={"100%"}
+              mb={"12px"}
+            >
               <Group justify="center" mb="xs">
-                <Text fw={500} size="20px" c={'#8B0000'}>About Our Company</Text>
+                <Text fw={500} size="20px" c={"#8B0000"}>
+                  About Our Company
+                </Text>
               </Group>
 
-              <Text size="16px" style={{lineHeight: 2}} mt={3}>
+              <Text size="16px" style={{ lineHeight: 2 }} mt={3}>
                 {aboutOnHome.length > 0
                   ? aboutOnHome[0].description ?? aboutOnHome[0].description
                   : aboutyemi}
@@ -246,14 +268,17 @@ const Home = () => {
             {exportServiceOnHome.length > 0 ? (
               exportServiceOnHome.map((item) => (
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-                    <Card.Section component="a" h={'100%'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
                       <Image
-                        src={
-                          item?.image
-                            ? item.image
-                            : excavator
-                        }
+                        src={item?.image ? item.image : excavator}
                         alt={
                           item?.service_name
                             ? item.service_name
@@ -276,8 +301,15 @@ const Home = () => {
             ) : (
               <>
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-                    <Card.Section component="a" h={'100%'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
                       <Image
                         src={coffee}
                         height={"auto"}
@@ -295,9 +327,43 @@ const Home = () => {
                     </Text>
                   </Card>
                 </Grid.Col>
+                
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-                    <Card.Section component="a" h={'100%'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
+                      <Image
+                        src={pules}
+                        height={"auto"}
+                        alt="Ethiopian Origin Mining Products"
+                      />
+                    </Card.Section>
+
+                    <Group justify="space-between" mt="md" mb="xs">
+                      <Text fw={500}>Pulses</Text>
+                    </Group>
+
+                    <Text size="sm" c="dimmed">
+                    A diverse selection, including kidney beans, black beans, green mung beans, and more.
+                    </Text>
+                  </Card>
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
                       <Image
                         src={miningproduct}
                         height={"auto"}
@@ -317,9 +383,16 @@ const Home = () => {
                   </Card>
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-                    <Card.Section component="a" h={'100%'} p={'6px'}>
-                      <Image src={oilseed} alt="Oil Seeds" />
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"} p={"6px"}>
+                      <Image src={hummeraoil} alt="Oil Seeds" />
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
@@ -351,14 +424,17 @@ const Home = () => {
             {importServiceOnHome.length > 0 ? (
               importServiceOnHome.map((item) => (
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-                    <Card.Section component="a" h={'100%'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
                       <Image
-                        src={
-                          item?.image
-                            ? item.image
-                            : excavator
-                        }
+                        src={item?.image ? item.image : excavator}
                         alt={
                           item?.service_name
                             ? item.service_name
@@ -380,36 +456,45 @@ const Home = () => {
               ))
             ) : (
               <>
-                <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'}>
-                    <Card.Section component="a" h={'100%'}>
+              
+              <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
                       <Image
-                        src={excavator}
+                        src={sinotruk}
                         height={"auto"}
                         alt="Imported Products"
                       />
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>Excavator</Text>
+                      <Text fw={500}>Sinotrac:- Construction and Heavy Machinery</Text>
                     </Group>
 
                     <Text size="sm" c="dimmed">
-                      we are dedicated to providing top-tier import services for
-                      high-performance excavators. Our selection includes a wide
-                      range of models designed for various construction and
-                      excavation tasks, ensuring you have the right machinery
-                      for your projects.
+                    Hitachi, XCMG, and other leading brands in excavators, loaders, dozers, cranes, forklifts, and trucks.
                     </Text>
                   </Card>
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'}>
-                    <Card.Section component="a" h={'100%'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
                       <Image
-                        src={dozer}
+                        src={loader}
                         height={"auto"}
-                        alt="Dozer Imported Products"
+                        alt="Imported Products"
                       />
                     </Card.Section>
 
@@ -418,8 +503,37 @@ const Home = () => {
                     </Group>
 
                     <Text size="sm" c="dimmed">
+                    A loader is a powerful and versatile piece of heavy machinery used in construction, 
+                    mining, and material handling. Designed to move large quantities of materials 
+                    such as soil, sand, gravel, and debris, loaders feature a front-mounted bucket 
+                    that lifts, transports, 
+                    and loads materials onto trucks or into designated areas.
+                    </Text>
+                  </Card>
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
+                      <Image
+                        src={dozer}
+                        height={"auto"}
+                        alt="Dozer Imported Products"
+                      />
+                    </Card.Section>
+
+                    <Group justify="space-between" mt="md" mb="xs">
+                      <Text fw={500}>Excavator</Text>
+                    </Group>
+
+                    <Text size="sm" c="dimmed">
                       We specialize ourselves on delivering premium import
-                      services for high-quality loaders. Our range includes
+                      services for high-quality Excavator. Our range includes
                       versatile models tailored for various construction and
                       material handling applications, ensuring optimal
                       performance and efficiency for your projects.
@@ -427,8 +541,15 @@ const Home = () => {
                   </Card>
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-                    <Card.Section component="a" h={'100%'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
                       <Image
                         src={crane}
                         height={"auto"}
@@ -469,14 +590,16 @@ const Home = () => {
             {comprehensiveServiceOnHome.length > 0 ? (
               comprehensiveServiceOnHome.map((item) => (
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder mb={'12px'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    mb={"12px"}
+                  >
                     <Card.Section component="a">
                       <Image
-                        src={
-                          item?.image
-                            ? item.image
-                            : consulting
-                        }
+                        src={item?.image ? item.image : consulting}
                         alt={
                           item?.file_name
                             ? item.file_name
@@ -507,7 +630,13 @@ const Home = () => {
             ) : (
               <>
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder mb={'12px'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    mb={"12px"}
+                  >
                     <Card.Section component="a">
                       <Image
                         src={consulting}
@@ -530,7 +659,13 @@ const Home = () => {
                 </Grid.Col>
                 <Divider my="md" />
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-                  <Card shadow="sm" padding="lg" radius="md" withBorder mb={'12px'}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    mb={"12px"}
+                  >
                     <Image
                       src={commission}
                       alt="commission"
@@ -566,8 +701,15 @@ const Home = () => {
         </Title>
         <Grid grow mb={30}>
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'} mb={'12px'}>
-              <Card.Section component="a" h={'100%'}>
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              withBorder
+              h={"100%"}
+              mb={"12px"}
+            >
+              <Card.Section component="a" h={"100%"}>
                 <Image
                   src={
                     contactData.contact.length > 0 &&
@@ -592,8 +734,8 @@ const Home = () => {
               padding="lg"
               radius="md"
               withBorder
-              h={'100%'}
-              mb={'12px'}
+              h={"100%"}
+              mb={"12px"}
             >
               <Text fz={17} fw={400}>
                 YEMI General Trading L.L.C
@@ -641,6 +783,7 @@ const Home = () => {
           </Grid.Col>
         </Grid>
       </Container>
+      <CommonLink />
     </>
   );
 };

@@ -100,9 +100,12 @@ export const Layout = () => {
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group justify="space-between" style={{ flex: 1 }}>
             <Image src={logo} width={60} h={60} />
-            {contactData.contact.company_name}
-            <Text></Text>
-
+            {
+              contactData.contact.company_name ?
+            <Text>{contactData.contact.company_name}</Text>
+            : 
+            <Text>YEMI General Trading LLC</Text>
+            }
             <Header />
           </Group>
         </Group>

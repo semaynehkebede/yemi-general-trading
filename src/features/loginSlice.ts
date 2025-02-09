@@ -7,7 +7,7 @@ import {Credentials} from "../types/contentType"
 
 // import { api } from "../../configuration/AxiosConfig";
 
-const initialState: LognState = {
+const initialState: LoginState = {
     currentUser: JSON.parse(localStorage.getItem('userInfo') || 'null'),
     loading: false,
     error: null

@@ -9,15 +9,15 @@ import {
   Text,
   Space,
 } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import kidneybeans from "../assets/image/kidneybeans.jpg"; // Import the image
-import sinotrack from "../assets/image/sinotrack.png"; // Import the image
-import coffee from "../assets/image/c1.webp"; // Import the image
-import avatoor2 from "../assets/image/avator2.jpg"; // Import the image
-import avatoor1 from "../assets/image/avatoor1.jpg"; // Import the image
+import { useEffect, useState } from "react";
+import hummeraoil from "../assets/image/hummeraoil.jpg"; 
+
+import sinotrack from "../assets/image/sinotrack.png";
+import coffee from "../assets/image/c1.webp"; 
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { RootState } from "../app/store";
 import { fetchContentThunk } from "../features/contentSlice";
+import CommonLink from "./CommonLink";
 
 const About = () => {
   const dispatch = useAppDispatch();
@@ -44,25 +44,25 @@ const About = () => {
     <>
       <Container fluid p={0} h={"calc(100vh - 80px)"}>
         <div
-          onMouseEnter={() => setHomeImageHovered(true)} // On hover, set to true
-          onMouseLeave={() => setHomeImageHovered(false)} // On hover leave, set to false
+          onMouseEnter={() => setHomeImageHovered(true)} 
+          onMouseLeave={() => setHomeImageHovered(false)} 
           style={{
             position: "relative",
             width: "100%",
             height: "100%",
-            overflow: "hidden", // Ensure no overflow from the image
-            transition: "all 0.3s ease", // Smooth transition for hover effects
+            overflow: "hidden", 
+            transition: "all 0.3s ease", 
           }}
         >
           <Image
-            src={homeImageHovered ? sinotrack : kidneybeans} // Replace with your image URL
+            src={homeImageHovered ? sinotrack : hummeraoil} 
             alt="Full-screen"
             style={{
-              objectFit: "cover", // Still cover but with max width/height
-              width: "100%", // Ensure it spans the full width
-              height: "100%", // Ensure it spans the full height
-              maxWidth: "100%", // Prevent image from overflowing horizontally
-              maxHeight: "100%", // Prevent image from overflowing vertically
+              objectFit: "cover", 
+              width: "100%", 
+              height: "100%", 
+              maxWidth: "100%", 
+              maxHeight: "100%", 
               display: "block",
               filter: homeImageHovered ? "contrast(150%)" : "none",
               transition: "filter 0.3s ease",
@@ -70,18 +70,18 @@ const About = () => {
           />
           <Text
             style={{
-              position: "absolute", // Position the text absolutely within the container
-              top: "50%", // Center vertically
-              left: "50%", // Center horizontally
-              transform: "translate(-50%, -50%)", // Adjust for perfect centering
-              color: "white", // Make text white for visibility
+              position: "absolute",
+              top: "50%", 
+              left: "50%", 
+              transform: "translate(-50%, -50%)", 
+              color: "white",
               textAlign: "center",
               backgroundColor:
-                "rgba(0, 0, 0, 0.5)" /* Optional: Add a semi-transparent background */,
-              borderRadius: 15 /* Optional: Rounded corners */,
-              fontSize: "2rem", // Large text size
-              fontWeight: "bold", // Optional: Make the text bold
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)", // Optional: Add text shadow for contrast
+                "rgba(0, 0, 0, 0.5)" ,
+              borderRadius: 15 ,
+              fontSize: "2rem", 
+              fontWeight: "bold", 
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
             }}
           >
             About Us
@@ -127,11 +127,11 @@ const About = () => {
                       ? aboutOnHome[0].file_name
                       : "About We..."
                   }
-                  // src={coffee} // Replace with your image URL
+                  
                   style={{
-                    objectFit: "cover", // Still cover but with max width/height
-                    width: "100%", // Ensure it spans the full width
-                    height: "100%", // Ensure it spans the full height
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "100%", 
                     display: "block",
                     transition: "filter 0.3s ease",
                   }}
@@ -153,113 +153,7 @@ const About = () => {
           </Grid.Col>
         </Grid>
       </Container>
-      <Container
-        mt={42}
-        fluid
-        style={{
-          width: "100%", // full viewport width
-          overflow: "hidden", // hide any overflow>
-        }}
-      >
-        <Title ta={"center"} order={2} mt="sm" mb="sm">
-          <Divider
-            my="xl"
-            label={
-              <Text size="xl" color="red" fw={800} fz={26}>
-                Our Clients idea
-              </Text>
-            }
-            labelPosition="center"
-            color="red"
-            size="md"
-          />
-        </Title>
-        <Grid grow pb={30}>
-          <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              {/* <Card.Section>
-                <Image
-                  src={avatoor1}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section> */}
-
-              <Text fw={500} size="lg" mt="md">
-                Ms. Senait Mogess
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                Product ManagerWorking with Abiy Masresha has been a game-changer for our projects. 
-                Their machinery is always well-maintained,
-                 and the staff is knowledgeable and responsive.
-                  We've built a strong, trustworthy relationship over the years.
-              </Text>
-            </Card>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
-                <Image
-                  src={avatoor2}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                Dr. Biniam...
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                CEO of our company
-              </Text>
-            </Card>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
-                <Image
-                  src={avatoor2}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                Dr. Alazar Danel...
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-              Senior Manager
-              </Text>
-            </Card>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
-                <Image
-                  src={avatoor1}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                Mr Abebe...
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                Consultant
-              </Text>
-            </Card>
-          </Grid.Col>
-        </Grid>
-      </Container>
+      <CommonLink />
     </>
   );
 };

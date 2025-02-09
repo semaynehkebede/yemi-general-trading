@@ -33,6 +33,7 @@ import { toast } from "react-hot-toast"; // Import toast notification library
 import SliderUpdate from "./SliderUpdate";
 import AboutUpdate from "./about/AboutUpdate";
 import { fetchContactThunk } from "../../features/contactSlice";
+import ContactUpdate from "./ContactUpdate";
 
 const ContentList = () => {
   const dispatch = useAppDispatch();
@@ -767,7 +768,7 @@ const ContentList = () => {
                             setOpenUpdateContactModal(true);
                             setSelectdData(contactData.contact);
                           }}
-                          >Download zip</Menu.Item>
+                          >Edit</Menu.Item>
                           <Menu.Item>Preview all</Menu.Item>
                           <Menu.Item
                             // leftSection={<IconTrash size={14} />}

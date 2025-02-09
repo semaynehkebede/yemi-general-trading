@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ContactInput, ContactOutput, ContactState } from "../types/contentType";
-import {createContactUrl, createServiceContUrl, deleteContactUrl, deleteServiceContUrl, viewContactUrl, viewServiceContUrl } from "../api/endPoint";
+import {createContactUrl, createServiceContUrl, deleteContactUrl, deleteServiceContUrl, updateContactUrl, viewContactUrl, viewServiceContUrl } from "../api/endPoint";
 import { RootState } from "../app/store";
 import api from "../configuration/axios";
 
@@ -15,12 +15,14 @@ export const createContact = async (contact: ContactInput) => {
 };
 
 export const updateContact = async (contact: any) => {
+  console.log('uytgyhghj', contact);
   const id = contact.get("id"); // Get single field
   const updateContact_api = `${
     import.meta.env.VITE_API_URL
-  }${createContactUrl}${id}/`;
-  console.log("update", updateContact_api);
-  return await axios.patch(updateContact_api, contact);
+  }${updateContactUrl}${id}/`;
+  console.log("update", updateContact_api, id);
+  const response = await api.patch(updateContact_api, contact);
+  return response;
 };
 
 export const deleteContact = async (id: string) => {

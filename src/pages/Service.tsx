@@ -9,21 +9,24 @@ import {
   Text,
   Space,
 } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import multiple from "../assets/image/allimage.jpg"; // Import the image
-import miningproduct from "../assets/image/miningproduct.jpg"; // Import the image
-import oilseed from "../assets/image/humerasesame.png"; // Import the image
-import excavator from "../assets/image/excavator.png"; // Import the image
-import dozer from "../assets/image/dozer.png"; // Import the image
-import crane from "../assets/image/crane1.jpg"; // Import the image
-import coffee from "../assets/image/c1.webp"; // Import the image
-import consulting from "../assets/image/consulting.jpg"; // Import the image
-import commission from "../assets/image/commission.png"; // Import the image
-import loader from "../assets/image/loader.png"; // Import the image
+import { useEffect, useState } from "react";
+import pules from "../assets/image/pulses.jpg";
+import automobil from "../assets/image/automobil.jpg"; 
+import multiple from "../assets/image/allimage.jpg"; 
+import miningproduct from "../assets/image/miningproduct.jpg"; 
+import wolegasesame from "../assets/image/wolegasesame.jpg"; 
+import excavator from "../assets/image/excavator.jpg"; 
+import forklift from "../assets/image/forklift.jpg"; 
+import crane from "../assets/image/crane1.jpg"; 
+import coffee from "../assets/image/c1.webp"; 
+import consulting from "../assets/image/consulting.jpg"; 
+import commission from "../assets/image/commission.png"; 
+import loader from "../assets/image/loader.png"; 
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { RootState } from "../app/store";
 import { fetchImageThunk } from "../features/imageSlice";
 import { fetchServiceThunk } from "../features/serviceSlice";
+import CommonLink from "./CommonLink";
 
 const Service = () => {
   const dispatch = useAppDispatch();
@@ -70,25 +73,25 @@ const Service = () => {
     <>
       <Container fluid p={0} h={"calc(100vh - 80px)"}>
         <div
-          onMouseEnter={() => setHomeImageHovered(true)} // On hover, set to true
-          onMouseLeave={() => setHomeImageHovered(false)} // On hover leave, set to false
+          onMouseEnter={() => setHomeImageHovered(true)}
+          onMouseLeave={() => setHomeImageHovered(false)}
           style={{
             position: "relative",
             width: "100%",
             height: "100%",
-            overflow: "hidden", // Ensure no overflow from the image
-            transition: "all 0.3s ease", // Smooth transition for hover effects
+            overflow: "hidden",
+            transition: "all 0.3s ease",
           }}
         >
           <Image
-            src={homeImageHovered ? slideImage1 : slideImage2} // Replace with your image URL
+            src={homeImageHovered ? slideImage1 : slideImage2}
             alt="Full-screen"
             style={{
-              objectFit: "cover", // Still cover but with max width/height
-              width: "100%", // Ensure it spans the full width
-              height: "100%", // Ensure it spans the full height
-              maxWidth: "100%", // Prevent image from overflowing horizontally
-              maxHeight: "100%", // Prevent image from overflowing vertically
+              objectFit: "cover",
+              width: "100%", 
+              height: "100%",
+              maxWidth: "100%",
+              maxHeight: "100%",
               display: "block",
             paddingTop: "8px",
               filter: homeImageHovered ? "contrast(150%)" : "none",
@@ -97,18 +100,18 @@ const Service = () => {
           />
           <Text
             style={{
-              position: "absolute", // Position the text absolutely within the container
-              top: "50%", // Center vertically
-              left: "50%", // Center horizontally
-              transform: "translate(-50%, -50%)", // Adjust for perfect centering
-              color: "red", // Make text white for visibility
+              position: "absolute",
+              top: "50%", 
+              left: "50%", 
+              transform: "translate(-50%, -50%)",
+              color: "red", 
               textAlign: "center",
               backgroundColor:
-                "rgba(0, 0, 0, 0.5)" /* Optional: Add a semi-transparent background */,
-              borderRadius: 15 /* Optional: Rounded corners */,
-              fontSize: "2rem", // Large text size
-              fontWeight: "bold", // Optional: Make the text bold
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)", // Optional: Add text shadow for contrast
+                "rgba(0, 0, 0, 0.5)" ,
+              borderRadius: 15 ,
+              fontSize: "2rem", 
+              fontWeight: "bold", 
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
             }}
           >
             {serviceSliderImage.length > 0 ? (
@@ -128,8 +131,8 @@ const Service = () => {
         mb={40}
         fluid
         style={{
-          width: "100%", // full viewport width
-          overflow: "hidden", // hide any overflow>
+          width: "100%",
+          overflow: "hidden", 
         }}
       >
         {/* Centered Title */}
@@ -150,7 +153,7 @@ const Service = () => {
           fluid
           bg={"#F8F7F6"}
           style={{
-            borderRadius: "8px", // Apply the custom border radius here
+            borderRadius: "8px", 
             padding: "20px",
           }}
         >
@@ -210,6 +213,33 @@ const Service = () => {
                     </Text>
                   </Card>
                 </Grid.Col>
+                
+                <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                  <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    h={"100%"}
+                    mb={"12px"}
+                  >
+                    <Card.Section component="a" h={"100%"}>
+                      <Image
+                        src={pules}
+                        height={"auto"}
+                        alt="Ethiopian Origin Mining Products"
+                      />
+                    </Card.Section>
+
+                    <Group justify="space-between" mt="md" mb="xs">
+                      <Text fw={500}>Pulses</Text>
+                    </Group>
+
+                    <Text size="sm" c="dimmed">
+                    A diverse selection, including kidney beans, black beans, green mung beans, and more.
+                    </Text>
+                  </Card>
+                </Grid.Col>
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                   <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'}  mb={'12px'}>
                     <Card.Section component="a" h={'100%'} >
@@ -234,7 +264,7 @@ const Service = () => {
                 <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                   <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'}  mb={'12px'}>
                     <Card.Section component="a" h={'100%'}>
-                      <Image src={oilseed} height={"auto"} alt="Norway" />
+                     <Image src={wolegasesame} height={"auto"} alt="Norway" />
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
@@ -256,7 +286,7 @@ const Service = () => {
           bg={"#45443F"}
           style={{
             borderRadius: "8px",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Apply a custom shadow
+            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", 
             padding: "10px",
           }}
         >
@@ -324,14 +354,14 @@ const Service = () => {
                   <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'}  mb={'12px'}>
                     <Card.Section component="a" h={'100%'}>
                       <Image
-                        src={dozer}
+                        src={forklift}
                         height={"auto"}
                         alt="Dozer Imported Products"
                       />
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>Loader</Text>
+                      <Text fw={500}>Forklift</Text>
                     </Group>
 
                     <Text size="sm" c="dimmed">
@@ -340,6 +370,29 @@ const Service = () => {
                       versatile models tailored for various construction and
                       material handling applications, ensuring optimal
                       performance and efficiency for your projects.
+                    </Text>
+                  </Card>
+                </Grid.Col>
+
+                
+                <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+                  <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'}  mb={'12px'}>
+                    <Card.Section component="a" h={'100%'}>
+                      <Image
+                        src={automobil}
+                        height={"auto"}
+                        alt="Crane Imported Products"
+                      />
+                    </Card.Section>
+
+                    <Group justify="space-between" mt="md" mb="xs">
+                      <Text fw={500}>Automobiles and Parts</Text>
+                    </Group>
+
+                    <Text size="sm" c="dimmed">
+                    We deliver a wide selection of electric and hybrid 
+                    vehicles, along with a comprehensive range of essential spare parts, ensuring reliability, efficiency, and sustainability 
+                    for various transportation needs. 
                     </Text>
                   </Card>
                 </Grid.Col>
@@ -381,20 +434,16 @@ const Service = () => {
                   <Card shadow="sm" padding="lg" radius="md" withBorder h={'100%'}  mb={'12px'}>
                     <Card.Section component="a" h={'100%'}>
                       <Image
-                        src={
-                          item?.image
-                            ? `data:image/png;base64,${item.image}`
-                            : consulting
-                        }
+                        src={item?.image ? item.image : consulting}
                         alt={
                           item?.file_name
                             ? item.file_name
                             : "Comprehensive Service..."
                         }
-                        height={200} // Set equal height for all images
-                        width="100%" // Make it responsive to the card's width
-                        fit="cover" // Ensures the image covers the area without stretching
-                        style={{ objectFit: "cover" }} // Ensures no distortion
+                        height={200}
+                        width="100%"
+                        fit="cover" 
+                        style={{ objectFit: "cover" }} 
                       />
                     </Card.Section>
 
@@ -422,9 +471,9 @@ const Service = () => {
                     <Card.Section component="a" h={'100%'}>
                       <Image
                         src={consulting}
-                        width="100%" // Make it responsive to the card's width
-                        fit="cover" // Ensures the image covers the area without stretching
-                        style={{ objectFit: "cover" }} // Ensures no distortion
+                        width="100%" 
+                        fit="cover"
+                        style={{ objectFit: "cover" }}
                         alt="consulting"
                       />
                     </Card.Section>
@@ -446,7 +495,7 @@ const Service = () => {
                     <Image
                       src={commission}
                       alt="commission"
-                      fit="cover" // Ensures the image covers the area without stretching
+                      fit="cover" 
                       style={{ objectFit: "cover" }} // Ensures no distortion
                     />
 
@@ -465,6 +514,7 @@ const Service = () => {
           </Grid>
         </Container>
       </Container>
+      <CommonLink />
     </>
   );
 };

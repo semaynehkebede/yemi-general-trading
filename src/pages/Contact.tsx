@@ -28,6 +28,7 @@ import { RootState } from "../app/store";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import toast from "react-hot-toast";
+import CommonLink from "./CommonLink";
 
 const Contact = () => {
   const contactData = useAppSelector((state: RootState) => state.contactData);
@@ -44,25 +45,6 @@ const Contact = () => {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
-  const handleSubmit = (values: any) => {
-      // const created_by = "Admin";
-      // // Create FormData object
-      // const formData = new FormData();
-      // formData.append("service_name", values.service_name);
-      // formData.append("description", values.description);
-      // formData.append("display_place", values.display_place); // Raw string
-      // formData.append("service_type", values.service_type); // Raw string
-      // formData.append("created_by", created_by);
-  
-      // if (values.image) {
-      //   formData.append("image", values.image); // File object
-      // }
-  
-      // console.log("Submitting form data:", [...formData.entries()]);
-      // // Dispatch the action (createContentAction should support FormData)
-      // dispatch(createServiceAction(formData));
-      // props.onClose(true);
-    };
   return (
     <>
       <Container
@@ -134,111 +116,6 @@ const Contact = () => {
           </Grid.Col>
         </Grid>
       </Container>
-      
-      <Container
-        mt={42}
-        fluid
-        style={{
-          width: "100%", // full viewport width
-          overflow: "hidden", // hide any overflow>
-        }}
-      >
-        <Title ta={"center"} order={2} mt="sm" mb="sm">
-          <Divider
-            my="xl"
-            label={
-              <Text size="xl" color="red" fw={800} fz={26}>
-                Contact Our Workers
-              </Text>
-            }
-            labelPosition="center"
-            color="red"
-            size="md"
-          />
-        </Title>
-        <Grid grow pb={30}>
-          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
-                <Image
-                  src={avatoor1}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                Ms. Senait Mogess
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                Product Manager
-              </Text>
-            </Card>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
-                <Image
-                  src={avatoor2}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                Dr. Biniam...
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                CEO of our company
-              </Text>
-            </Card>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
-                <Image
-                  src={avatoor2}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                Dr. Alazar Danel...
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-              Senior Manager
-              </Text>
-            </Card>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
-            <Card shadow="sm" padding="xl" component="a" target="_blank">
-              <Card.Section>
-                <Image
-                  src={avatoor1}
-                  h={160}
-                  alt="No way!"
-                  style={{ objectFit: "contain" }}
-                />
-              </Card.Section>
-
-              <Text fw={500} size="lg" mt="md">
-                Mr Abebe...
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                Consultant
-              </Text>
-            </Card>
-          </Grid.Col>
-        </Grid>
-      </Container>
       <Container
         mt={42}
         style={{
@@ -255,7 +132,7 @@ const Contact = () => {
               <Text fw={500} size="lg" mt="md">
                 Contact Form
               </Text>
-              <form onSubmit={form.onSubmit(handleSubmit)}>
+              <form>
                 <TextInput
                   withAsterisk
                   label="Name"
@@ -309,10 +186,10 @@ const Contact = () => {
                   }`)}
                 />
                 <Textarea
+                  withAsterisk
                   mt="md"
                   label="With your message"
                   placeholder="Write your message"
-                  error="Invalid name"
                   readOnly
                   onFocus={() => toast.error(  `Please send your idea:-  ${
                     contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
@@ -346,6 +223,7 @@ const Contact = () => {
           </Grid.Col>
         </Grid>
       </Container>
+      <CommonLink />
     </>
   );
 };

@@ -18,6 +18,7 @@ export const deleteServiceContUrl = "delete/service/";
 
 export const viewContactUrl = "view/contact/"
 export const createContactUrl = "create/contact/"
+export const updateContactUrl = "update/contact/"
 export const deleteContactUrl = "delete/contact/"
 
 export const loginUrl = "auth/login";
