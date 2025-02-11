@@ -9,7 +9,7 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React, { useState } from "react";
+import { useState } from "react";
 import { createServiceAction } from "../../features/serviceSlice";
 import { useAppDispatch } from "../../hooks/hooks";
 import toast from "react-hot-toast";
@@ -31,7 +31,7 @@ const ServiceRegistration = (props: createUserProps) => {
     },
     { value: "other", label: "Other" },
   ];
-  const [displayPlaceOptions, setDisplayPlaceOptions] = useState([
+  const [displayPlaceOptions] = useState([
     { value: "home", label: "Home" },
     { value: "service", label: "Service" },
   ]);

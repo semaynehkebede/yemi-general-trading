@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   TextInput,
-  Select,
   Textarea,
   FileInput,
   Button,
@@ -13,7 +12,7 @@ import { ContactOutput } from "../../types/contentType";
 import { useForm } from "@mantine/form";
 import { useAppDispatch } from "../../hooks/hooks";
 import toast from "react-hot-toast";
-import { updateImageAction } from "../../features/imageSlice";
+// import { updateImageAction } from "../../features/imageSlice";
 import { updateContactAction } from "../../features/contactSlice";
 
 export interface UpdateProps {
@@ -31,6 +30,8 @@ const ContactUpdate: React.FC<UpdateProps> = ({
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
+  console.log(image);
+  
   // Initialize form with selectedItem data
   const form = useForm({
     initialValues: {

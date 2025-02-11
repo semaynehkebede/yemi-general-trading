@@ -1,5 +1,4 @@
 import { Anchor, Card, Container, Divider, Grid, Group, Stack, Text, Title } from '@mantine/core'
-import React from 'react'
 import { FaEnvelope, FaFacebook, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaTwitter } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 

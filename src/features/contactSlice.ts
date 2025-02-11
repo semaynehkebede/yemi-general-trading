@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ContactInput, ContactOutput, ContactState } from "../types/contentType";
-import {createContactUrl, createServiceContUrl, deleteContactUrl, deleteServiceContUrl, updateContactUrl, viewContactUrl, viewServiceContUrl } from "../api/endPoint";
+import {createContactUrl, deleteContactUrl, updateContactUrl, viewContactUrl } from "../api/endPoint";
 import { RootState } from "../app/store";
 import api from "../configuration/axios";
 
@@ -37,7 +37,7 @@ export const deleteContact = async (id: string) => {
 // Initial state
 const initialState: ContactState = {
   isLoading: true,
-  contact: [] as ContactOutput[],
+  contact: {} as ContactOutput
 };
 
 export const createContactAction = createAsyncThunk(
@@ -73,7 +73,7 @@ export const updateContactAction = createAsyncThunk(
 export const deleteContactAction = createAsyncThunk(
   "contact/deleteContacts",
   async (id: string) => {
-    const response = await deleteContact(id);
+    await deleteContact(id);
     console.log("on asynch", id);
     return id;
   }
@@ -87,13 +87,14 @@ const contactSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createContactAction.fulfilled, (state, action) => {
-        state.contact.push(action.payload);
+        state.contact = action.payload;
+        // state.contact.push(action.payload);
         state.isLoading = false;
       })
-      .addCase(createContactAction.pending, (state, action) => {
+      .addCase(createContactAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createContactAction.rejected, (state, action) => {
+      .addCase(createContactAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -104,7 +105,7 @@ const contactSlice = createSlice({
         state.isLoading = false;
         state.contact = action.payload;
       })
-      .addCase(fetchContactThunk.rejected, (state, action) => {
+      .addCase(fetchContactThunk.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -118,25 +119,25 @@ const contactSlice = createSlice({
           state.contact[index] = action.payload;
         }
       })
-      .addCase(updateContactAction.pending, (state, action) => {
+      .addCase(updateContactAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateContactAction.rejected, (state, action) => {
+      .addCase(updateContactAction.rejected, (state) => {
         state.isLoading = true;
       })
 
       .addCase(deleteContactAction.fulfilled, (state, action) => {
         state.isLoading = false;
         // Delete item in the state
-        state.contact = state.contact.filter(
-          (contact) => contact.id !== action.payload
-        );
+        // state.contact = state.contact.filter(
+        //   (contact) => contact.id !== action.payload
+        // );
         console.log("filtered", action.payload);
       })
-      .addCase(deleteContactAction.pending, (state, action) => {
+      .addCase(deleteContactAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteContactAction.rejected, (state, action) => {
+      .addCase(deleteContactAction.rejected, (state) => {
         state.isLoading = true;
       });
   },

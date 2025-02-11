@@ -25,7 +25,6 @@ const publicData = [
   { link: "/contact", label: "Contact" },
 ];
 
-// Define private routes (only available for logged-in users)
 const privateData = [
   { link: "/manage/employee", label: "Employee" },
   { link: "/manage/content", label: "Content" },
@@ -34,18 +33,18 @@ const privateData = [
 export const Header = () => {
   const dispatch = useAppDispatch();
   const [opened, { toggle }] = useDisclosure();
+  console.log(opened);
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
 
   const current_url = window.location.pathname.replace("/", "");
-  // var reload_index = data.findIndex((item) => item.link === current_url);
+  
   const reload_index = publicData.findIndex(
     (item) => item.link === `/${current_url}`
   );
   const [active, setActive] = useState(reload_index !== -1 ? reload_index : 0);
-  // const [active, setActive] = useState(reload_index);
   const navigate = useNavigate(); // Navigate object for navigation
 
   // Dynamically fetch the user data from localStorage
@@ -69,6 +68,8 @@ export const Header = () => {
       component={Link}
       to={item.link}
       onClick={(event) => {
+        console.log(event);
+        
         setActive(index);
         if (window.innerWidth <= 768) {
           // Check if the screen width is small

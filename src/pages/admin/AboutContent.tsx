@@ -1,10 +1,8 @@
-import { Button, FileInput, Grid, Image, Paper, Select, Textarea, TextInput } from "@mantine/core";
+import { Button, FileInput, Grid, Image, Paper, Select, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { createAboutAction } from "../../features/aboutSlice";
 import { useAppDispatch } from "../../hooks/hooks";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import { showNotification } from "@mantine/notifications";
 import toast from "react-hot-toast";
 
 type createUserProps = {
@@ -12,7 +10,7 @@ type createUserProps = {
   };
   const AboutContent = (props: createUserProps) => {
   const dispatch = useAppDispatch();
-    const [displayPlaceOptions, setDisplayPlaceOptions] = useState([
+    const [displayPlaceOptions] = useState([
       { value: "home", label: "Home" },
       { value: "about", label: "About" },
     ]);

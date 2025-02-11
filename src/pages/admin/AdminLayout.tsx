@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Badge,
   Button,
   Card,
   Container,
@@ -9,7 +8,6 @@ import {
   Grid,
   Group,
   Image,
-  Loader,
   Space,
   Text,
   Title,
@@ -569,16 +567,16 @@ const AdminLayout = () => {
               <Card.Section component="a" h={'100%'}>
                 <Image
                   src={
-                    contactData.contact.length > 0 &&
-                    contactData.contact[0]?.image
-                      ? `data:image/png;base64,${contactData.contact[0].image}`
+                    contactData.contact &&
+                    contactData.contact?.image
+                      ? contactData.contact.image
                       : maitower
                   }
                   height={"auto"}
                   alt={
-                    contactData.contact.length > 0 &&
-                    contactData.contact[0]?.file_name
-                      ? contactData.contact[0].file_name
+                    contactData.contact &&
+                    contactData.contact?.file_name
+                      ? contactData.contact.file_name
                       : "Head Office..."
                   }
                 />
@@ -599,9 +597,9 @@ const AdminLayout = () => {
               </Text>
               Office Address:
               <Space />
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.officeFullAddress ? (
-                contactData.contact[0]?.officeFullAddress
+              {contactData.contact &&
+              contactData.contact?.office_full_address ? (
+                contactData.contact?.office_full_address
               ) : (
                 <>
                   Mai Tower, Office
@@ -611,24 +609,24 @@ const AdminLayout = () => {
               )}
               <Space />
               Phone:{" "}
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.phoneNumber ? (
-                contactData.contact[0]?.phoneNumber
+              {contactData.contact &&
+              contactData.contact?.phone_number ? (
+                contactData.contact?.phone_number
               ) : (
                 <>+971543017029</>
               )}
               <Space />
               Email:{" "}
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.emailAddress ? (
-                contactData.contact[0]?.emailAddress
+              {contactData.contact &&
+              contactData.contact?.email_address ? (
+                contactData.contact?.email_address
               ) : (
                 <>Info@yemitradingllc.com</>
               )}
               <Space />
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.description ? (
-                contactData.contact[0]?.description
+              {contactData.contact &&
+              contactData.contact?.description ? (
+                contactData.contact?.description
               ) : (
                 <>
                   We are conveniently located in the heart of Dubai, providing

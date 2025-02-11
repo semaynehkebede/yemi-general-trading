@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Anchor,
   Button,
   Card,
   Container,
@@ -10,7 +9,6 @@ import {
   Group,
   Image,
   Space,
-  Stack,
   Text,
   Title,
 } from "@mantine/core";
@@ -34,15 +32,8 @@ import { RootState } from "../app/store";
 import { fetchImageThunk } from "../features/imageSlice";
 import { fetchAboutThunk } from "../features/aboutSlice";
 import { fetchServiceThunk } from "../features/serviceSlice";
-import {
-  FaEnvelope,
-  FaFacebook,
-  FaInstagram,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaTwitter,
-} from "react-icons/fa";
 import CommonLink from "./CommonLink";
+import { fetchContactThunk } from "../features/contactSlice";
 const aboutyemi = `
 YEMI GENERAL TRADING L.L.C. Founded on June 25, 2022, in Dubai, UAE,
 Y E M I GENERAL TRADING L.L.C. is a dedicated provider of world-class import and export solutions. 
@@ -86,8 +77,9 @@ const Home = () => {
     dispatch(fetchImageThunk());
     dispatch(fetchAboutThunk());
     dispatch(fetchServiceThunk());
+    dispatch(fetchContactThunk());
   }, []);
-  console.log("a content", serviceData.serviceCont);
+  console.log("a content", contactData.contact);
 
   const slideImage1 =
     homeSliderImage.length > 0 ? homeSliderImage[0].image : pules;
@@ -712,16 +704,16 @@ const Home = () => {
               <Card.Section component="a" h={"100%"}>
                 <Image
                   src={
-                    contactData.contact.length > 0 &&
-                    contactData.contact[0]?.image
-                      ? contactData.contact[0].image
+                    contactData.contact &&
+                    contactData.contact?.image
+                      ? contactData.contact.image
                       : maitower
                   }
                   height={"auto"}
                   alt={
-                    contactData.contact.length > 0 &&
-                    contactData.contact[0]?.file_name
-                      ? contactData.contact[0].file_name
+                    contactData.contact &&
+                    contactData.contact?.file_name
+                      ? contactData.contact.file_name
                       : "Head Office..."
                   }
                 />
@@ -742,9 +734,9 @@ const Home = () => {
               </Text>
               Office Address:
               <Space />
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.officeFullAddress ? (
-                contactData.contact[0]?.officeFullAddress
+              {contactData.contact &&
+              contactData.contact?.office_full_address ? (
+                contactData.contact?.office_full_address
               ) : (
                 <>
                   Mai Tower, Office
@@ -754,24 +746,24 @@ const Home = () => {
               )}
               <Space />
               Phone:{" "}
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.phoneNumber ? (
-                contactData.contact[0]?.phoneNumber
+              {contactData.contact &&
+              contactData.contact?.phone_number ? (
+                contactData.contact?.phone_number
               ) : (
                 <>+971543017029</>
               )}
               <Space />
               Email:{" "}
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.emailAddress ? (
-                contactData.contact[0]?.emailAddress
+              {contactData.contact &&
+              contactData.contact?.email_address ? (
+                contactData.contact?.email_address
               ) : (
                 <>Info@yemitradingllc.com</>
               )}
               <Space />
-              {contactData.contact.length > 0 &&
-              contactData.contact[0]?.description ? (
-                contactData.contact[0]?.description
+              {contactData.contact &&
+              contactData.contact?.description ? (
+                contactData.contact?.description
               ) : (
                 <>
                   We are conveniently located in the heart of Dubai, providing

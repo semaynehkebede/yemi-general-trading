@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  TextInput,
   Select,
   Textarea,
   FileInput,
@@ -13,7 +12,6 @@ import { ImageOutput } from "../../types/contentType";
 import { useForm } from "@mantine/form";
 import { useAppDispatch } from "../../hooks/hooks";
 import toast from "react-hot-toast";
-import { updateServiceAction } from "../../features/serviceSlice";
 import { updateImageAction } from "../../features/imageSlice";
 
 export interface UpdateSliderProps {
@@ -29,6 +27,8 @@ const SliderUpdate: React.FC<UpdateSliderProps> = ({
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
+  console.log(image);
+  
   // Initialize form with selectedItem data
   const form = useForm({
     initialValues: {
@@ -41,7 +41,7 @@ const SliderUpdate: React.FC<UpdateSliderProps> = ({
   // UseEffect to update the preview state when selectedItem changes
   useEffect(() => {
     if (selectedItem.image) {
-      setPreview(`data:image/png;base64,${selectedItem.image}`); // Assuming it's a file path
+      setPreview(selectedItem.image); // Assuming it's a file path
     }
   }, [selectedItem]); // Runs whenever selectedItem changes
 

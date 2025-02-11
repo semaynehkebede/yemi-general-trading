@@ -57,11 +57,6 @@ export const Layout = () => {
     dispatch(logout());
     navigate("/");
   };
-
-  const handleSettings = () => {
-    window.location.href = "/settings"; // Redirect to settings page
-  };
-
   const links = data.map((item, index) => (
     <UnstyledButton
       key={item.link}
@@ -73,7 +68,7 @@ export const Layout = () => {
       component={Link}
       variant="link"
       to={item.link}
-      onClick={(event) => {
+      onClick={() => {
         setActive(index);
         if (window.innerWidth <= 768) {
           // Check if the screen width is small

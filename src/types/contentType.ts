@@ -56,19 +56,19 @@ interface ServiceOutput {
   image: string;
 }
 interface ContactInput {
-  companyName: string;
-  emailAddress: string;
-  phoneNumber: string;
-  officeFullAddress: string;
+  company_name: string;
+  email_address: string;
+  phone_number: string;
+  office_full_address: string;
   description: string;
   image: string;
 }
 interface ContactOutput {
   id: string;
-  companyName: string;
-  emailAddress: string;
-  phoneNumber: string;
-  officeFullAddress: string;
+  company_name: string;
+  email_address: string;
+  phone_number: string;
+  office_full_address: string;
   description: string;
   file_name: string;
   file_path: string;
@@ -117,7 +117,7 @@ interface ServiceState {
 }
 
 interface ContactState {
-  contact: ContactOutput[];
+  contact: ContactOutput;
   isLoading: boolean;
 }
 interface ContentState {

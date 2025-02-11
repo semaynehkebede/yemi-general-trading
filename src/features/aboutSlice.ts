@@ -48,7 +48,6 @@ const initialState: AboutState = {
 export const createAboutAction = createAsyncThunk(
   "createAboutAction",
   async (data: any) => {
-    console.log("on asy thunk", data);
 
     const response = await createAboutContent(data);
     return response.data;
@@ -96,10 +95,10 @@ const aboutSlice = createSlice({
         state.aboutContent.push(action.payload);
         state.isLoading = false;
       })
-      .addCase(createAboutAction.pending, (state, action) => {
+      .addCase(createAboutAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createAboutAction.rejected, (state, action) => {
+      .addCase(createAboutAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -110,7 +109,7 @@ const aboutSlice = createSlice({
         state.isLoading = false;
         state.aboutContent = action.payload;
       })
-      .addCase(fetchAboutThunk.rejected, (state, action) => {
+      .addCase(fetchAboutThunk.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -124,10 +123,10 @@ const aboutSlice = createSlice({
           state.aboutContent[index] = action.payload;
         }
       })
-      .addCase(updateAboutAction.pending, (state, action) => {
+      .addCase(updateAboutAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateAboutAction.rejected, (state, action) => {
+      .addCase(updateAboutAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -139,10 +138,10 @@ const aboutSlice = createSlice({
         );
         console.log("filtered", action.payload);
       })
-      .addCase(deleteAboutAction.pending, (state, action) => {
+      .addCase(deleteAboutAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteAboutAction.rejected, (state, action) => {
+      .addCase(deleteAboutAction.rejected, (state) => {
         state.isLoading = true;
       });
   },

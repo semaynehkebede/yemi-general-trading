@@ -12,10 +12,9 @@ import {
   ActionIcon,
   Space,
 } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Content from "./Content";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { deleteContentAction } from "../../features/contentSlice";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import ContentUpdate from "./ContentUpdate";
 import { RootState } from "../../app/store";
@@ -43,6 +42,8 @@ const ContentList = () => {
     (state: RootState) => state.serviceContentData
   );
   const contactData = useAppSelector((state: RootState) => state.contactData);
+
+
   const [modalOpened, setModalOpened] = useState(false);
   const [sliderModalOpened, setSliderModalOpened] = useState(false);
   const [contactModalOpened, setContactModalOpened] = useState(false);
@@ -59,7 +60,6 @@ const ContentList = () => {
   const [selectdData, setSelectdData] = useState<any>();
   const [openUpdateAboutModal, setOpenUpdateAboutModal] = useState(false);
   const [openUpdateContactModal, setOpenUpdateContactModal] = useState(false);
-  const [deletedAboutContent, setDeletedAboutContent] = useState<any>();
 
   useEffect(() => {
     dispatch(fetchImageThunk());
@@ -67,15 +67,6 @@ const ContentList = () => {
     dispatch(fetchServiceThunk());
     dispatch(fetchContactThunk());
   }, []);
-
-  const onSubmitDelete = (content: any) => {
-    console.log("deleted id", content.id);
-
-    dispatch(deleteContentAction(content.id));
-    if (status === "succeeded") {
-      setOpenDeleteModal(false);
-    }
-  };
 
   // Delete Service
   const onSubmitDeleteSliderData = async (data: any) => {
@@ -725,9 +716,8 @@ const ContentList = () => {
         </Group>
 
         <Grid grow>
-          {contactData.contact ? ( // Check if contact exists
+          {contactData.contact ? (
             <>
-              {/* Image Card */}
               <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
                 <Card
                   shadow="sm"

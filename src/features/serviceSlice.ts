@@ -95,10 +95,10 @@ const serviceSlice = createSlice({
         state.serviceCont.push(action.payload);
         state.isLoading = false;
       })
-      .addCase(createServiceAction.pending, (state, action) => {
+      .addCase(createServiceAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createServiceAction.rejected, (state, action) => {
+      .addCase(createServiceAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -109,7 +109,7 @@ const serviceSlice = createSlice({
         state.isLoading = false;
         state.serviceCont = action.payload;
       })
-      .addCase(fetchServiceThunk.rejected, (state, action) => {
+      .addCase(fetchServiceThunk.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -123,10 +123,10 @@ const serviceSlice = createSlice({
           state.serviceCont[index] = action.payload;
         }
       })
-      .addCase(updateServiceAction.pending, (state, action) => {
+      .addCase(updateServiceAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateServiceAction.rejected, (state, action) => {
+      .addCase(updateServiceAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -138,10 +138,10 @@ const serviceSlice = createSlice({
         );
         console.log("filtered", action.payload);
       })
-      .addCase(deleteServiceAction.pending, (state, action) => {
+      .addCase(deleteServiceAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteServiceAction.rejected, (state, action) => {
+      .addCase(deleteServiceAction.rejected, (state) => {
         state.isLoading = true;
       });
   },

@@ -27,6 +27,8 @@ const AboutUpdate: React.FC<UpdateAboutrProps> = ({
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
+  console.log(image);
+  
   // Initialize form with selectedItem data
   const form = useForm({
     initialValues: {

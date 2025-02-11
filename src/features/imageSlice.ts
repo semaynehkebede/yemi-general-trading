@@ -101,10 +101,10 @@ const imageSlice = createSlice({
         state.image.push(action.payload);
         state.isLoading = false;
       })
-      .addCase(createImageAction.pending, (state, action) => {
+      .addCase(createImageAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createImageAction.rejected, (state, action) => {
+      .addCase(createImageAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -115,7 +115,7 @@ const imageSlice = createSlice({
         state.isLoading = false;
         state.image = action.payload;
       })
-      .addCase(fetchImageThunk.rejected, (state, action) => {
+      .addCase(fetchImageThunk.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -129,10 +129,10 @@ const imageSlice = createSlice({
           state.image[index] = action.payload;
         }
       })
-      .addCase(updateImageAction.pending, (state, action) => {
+      .addCase(updateImageAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateImageAction.rejected, (state, action) => {
+      .addCase(updateImageAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -145,10 +145,10 @@ const imageSlice = createSlice({
         );
         console.log("filtered", action.payload);
       })
-      .addCase(deleteImageAction.pending, (state, action) => {
+      .addCase(deleteImageAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteImageAction.rejected, (state, action) => {
+      .addCase(deleteImageAction.rejected, (state) => {
         state.isLoading = true;
       });
   },

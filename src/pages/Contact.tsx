@@ -2,14 +2,10 @@ import {
   Button,
   Card,
   Container,
-  Divider,
-  Flex,
   Grid,
   Group,
   Image,
-  Title,
   Text,
-  Overlay,
   Space,
   Stack,
   TextInput,
@@ -18,15 +14,11 @@ import {
 import { useForm } from "@mantine/form";
 import coffee from "../assets/image/c1.webp"; // Import the image
 import map from "../assets/image/map.png"; // Import the image
-import avatoor2 from "../assets/image/avator2.jpg"; // Import the image
-import avatoor1 from "../assets/image/avatoor1.jpg"; // Import the image
 import { FaPhone } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { PiBuilding } from "react-icons/pi";
 import { useAppSelector } from "../hooks/hooks";
 import { RootState } from "../app/store";
-import { useState } from "react";
-import { useDisclosure } from "@mantine/hooks";
 import toast from "react-hot-toast";
 import CommonLink from "./CommonLink";
 
@@ -71,9 +63,9 @@ const Contact = () => {
                 <Space />
               </Stack>
               <Text size="md" c="dimmed" ta={"center"}>
-                {contactData.contact.length > 0 &&
-                contactData.contact[0]?.phoneNumber
-                  ? contactData.contact[0]?.phoneNumber
+                {contactData.contact &&
+                contactData.contact?.phone_number
+                  ? contactData.contact?.phone_number
                   : `+971543017029`}
               </Text>
             </Card>
@@ -89,9 +81,9 @@ const Contact = () => {
                 <Space />
               </Stack>
               <Text size="md" c="dimmed" ta={"center"}>
-                {contactData.contact.length > 0 &&
-                contactData.contact[0]?.emailAddress
-                  ? contactData.contact[0]?.emailAddress
+                {contactData.contact &&
+                contactData.contact?.email_address
+                  ? contactData.contact?.email_address
                   : `Info@yemitradingllc.com`}
               </Text>
             </Card>
@@ -107,9 +99,9 @@ const Contact = () => {
                 <Space />
               </Stack>
               <Text size="md" c="dimmed" ta={"center"}>
-                {contactData.contact.length > 0 &&
-                contactData.contact[0]?.officeFullAddress
-                  ? contactData.contact[0]?.officeFullAddress
+                {contactData.contact &&
+                contactData.contact?.office_full_address
+                  ? contactData.contact?.office_full_address
                   : `Mai Tower, Office 602, Dubai, UAE`}
               </Text>
             </Card>
@@ -141,8 +133,8 @@ const Contact = () => {
                   {...form.getInputProps("name")}
                   readOnly
                   onFocus={() => toast.error(  `Please send your idea:-  ${
-                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
-                      ? contactData.contact[0]?.emailAddress
+                   contactData.contact && contactData.contact?.email_address
+                      ? contactData.contact?.email_address
                       : "Info@yemitradingllc.com"
                   }`)}
                 />
@@ -154,8 +146,8 @@ const Contact = () => {
                   {...form.getInputProps("email")}
                   readOnly
                   onFocus={() => toast.error(  `Please send your idea:-  ${
-                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
-                      ? contactData.contact[0]?.emailAddress
+                   contactData.contact && contactData.contact?.email_address
+                      ? contactData.contact?.email_address
                       : "Info@yemitradingllc.com"
                   }`)}
                 />
@@ -167,8 +159,8 @@ const Contact = () => {
                   {...form.getInputProps("Phone")}
                   readOnly
                   onFocus={() => toast.error(  `Please send your idea:-  ${
-                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
-                      ? contactData.contact[0]?.emailAddress
+                   contactData.contact && contactData.contact?.email_address
+                      ? contactData.contact?.email_address
                       : "Info@yemitradingllc.com"
                   }`)}
                 />
@@ -180,8 +172,8 @@ const Contact = () => {
                   {...form.getInputProps("subject")}
                   readOnly
                   onFocus={() => toast.error(  `Please send your idea:-  ${
-                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
-                      ? contactData.contact[0]?.emailAddress
+                   contactData.contact && contactData.contact?.email_address
+                      ? contactData.contact?.email_address
                       : "Info@yemitradingllc.com"
                   }`)}
                 />
@@ -192,8 +184,8 @@ const Contact = () => {
                   placeholder="Write your message"
                   readOnly
                   onFocus={() => toast.error(  `Please send your idea:-  ${
-                    contactData.contact.length > 0 && contactData.contact[0]?.emailAddress
-                      ? contactData.contact[0]?.emailAddress
+                   contactData.contact && contactData.contact?.email_address
+                      ? contactData.contact?.email_address
                       : "Info@yemitradingllc.com"
                   }`)}
                 />

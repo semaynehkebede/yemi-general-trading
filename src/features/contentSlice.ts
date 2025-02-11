@@ -78,7 +78,7 @@ export const updateContentAction = createAsyncThunk(
 export const deleteContentAction = createAsyncThunk(
   "contents/deleteContents",
   async (id: string) => {
-    const response = await deleteContent(id);
+    await deleteContent(id);
     console.log("on asynch", id);
     return id;
   }
@@ -86,7 +86,7 @@ export const deleteContentAction = createAsyncThunk(
 export const deleteSliderAction = createAsyncThunk(
   "sliders/deleteContents",
   async (id: string) => {
-    const response = await deleteContent(id);
+    await deleteContent(id);
     console.log("on asynch", id);
     return id;
   }
@@ -107,7 +107,7 @@ const contentSlice = createSlice({
         state.content = action.payload;
         // state.patient.count = action.payload
       })
-      .addCase(fetchContentThunk.rejected, (state, action) => {
+      .addCase(fetchContentThunk.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -118,10 +118,10 @@ const contentSlice = createSlice({
 
         // state.patient.data= ...state.patient.data +;
       })
-      .addCase(createContentAction.pending, (state, action) => {
+      .addCase(createContentAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createContentAction.rejected, (state, action) => {
+      .addCase(createContentAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -136,10 +136,10 @@ const contentSlice = createSlice({
           state.content[index] = action.payload;
         }
       })
-      .addCase(updateContentAction.pending, (state, action) => {
+      .addCase(updateContentAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateContentAction.rejected, (state, action) => {
+      .addCase(updateContentAction.rejected, (state) => {
         state.isLoading = true;
       })
 
@@ -151,10 +151,10 @@ const contentSlice = createSlice({
         );
         console.log("filtered", action.payload);
       })
-      .addCase(deleteContentAction.pending, (state, action) => {
+      .addCase(deleteContentAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteContentAction.rejected, (state, action) => {
+      .addCase(deleteContentAction.rejected, (state) => {
         state.isLoading = true;
       });
   },

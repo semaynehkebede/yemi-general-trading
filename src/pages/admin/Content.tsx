@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
 import {
   Button,
-  Container,
-  Group,
   Paper,
   TextInput,
-  Title,
   Image,
   FileInput,
-  Text,
   Grid,
-  Card,
   Select,
   Textarea,
 } from "@mantine/core";
@@ -33,28 +28,6 @@ const Content = (props: createUserProps) => {
   const locationContents = contents.content.filter(
     (content: any) => content.content_type === "LOCATION"
   );
-  const serviceContents = contents.content.filter(
-    (content: any) =>
-      content.content_type === "EthiopianOriginExports" ||
-      content.content_type === "GlobalImportstoEastAfrica" ||
-      content.content_type === "ComprehensiveTradeServices"
-  );
-  const ethiopianOriginExportsContents = contents.content.filter(
-    (content: any) => content.content_type === "EthiopianOriginExports"
-  );
-  const globalImportstoEastAfricaContents = contents.content.filter(
-    (content: any) => content.content_type === "GlobalImportstoEastAfrica"
-  );
-  const comprehensiveTradeServicesContents = contents.content.filter(
-    (content: any) => content.content_type === "ComprehensiveTradeServices"
-  );
-  const otherContents = contents.content.filter(
-    (content: any) => content.content_type === "OTHER"
-  );
-  const [modalOpened, setModalOpened] = useState(false);
-  const [openUpdateModal, setOpenUpdateModal] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [selectdContent, setSelectdContent] = useState<any>();
 
   useEffect(() => {
     console.log("about content", aboutContents);

@@ -9,11 +9,9 @@ import {
   Paper,
   Image,
 } from "@mantine/core";
-import axios from "axios";
 import { ContentResponse } from "../../types/contentType";
 import { useForm } from "@mantine/form";
 import { useAppDispatch } from "../../hooks/hooks";
-import { updateContentAction } from "../../features/contentSlice";
 import toast from "react-hot-toast";
 import { updateServiceAction } from "../../features/serviceSlice";
 
@@ -32,6 +30,8 @@ const ContentUpdate: React.FC<UpdateContentProps> = ({
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
+  console.log(image);
+  
   // Initialize form with selectedItem data
   const form = useForm({
     initialValues: {

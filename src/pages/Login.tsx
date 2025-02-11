@@ -1,7 +1,6 @@
 import {
   Button,
   Grid,
-  Paper,
   PasswordInput,
   TextInput,
   Modal,
@@ -40,26 +39,12 @@ const Login = () => {
       password: (value) => (value.length < 3 ? "Password is required" : null),
     },
   });
-
-  // const handleSubmit = async (values: Credentials) => {
-  //   const resultAction = await dispatch(login(values));
-  //   if (login.rejected.match(resultAction)) {
-  //     const apiError = resultAction.payload as string;
-  //     if (apiError) {
-  //       form.setFieldError("username", apiError); // Show error on username field
-  //       form.setFieldError("password", apiError); // Show error on password field
-  //     }
-  //   } else {
-  //     setOpened(false); // Close modal on successful login
-  //   }
-  // };
-
   const handleSubmit = async (values: Credentials) => {
     console.log("form", values);
     
     const resultAction = await dispatch(login(values));
     if (login.rejected.match(resultAction)) {
-      const apiError = resultAction.payload as string;
+    resultAction.payload as string;
     } else {
       setOpened(false); // Close modal on successful login
     }

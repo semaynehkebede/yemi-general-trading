@@ -1,5 +1,5 @@
 import { Button, Card, Container, Grid, Group, Modal, Table, Title } from "@mantine/core";
-import React, { useState } from "react";
+import{ useState } from "react";
 import EmployeeRegistration from "./EmployeeRegistration";
 const elements = [
   { id: 1, title: "Mr", firstName: "Hydrogen", middleName: "Hydrogen", lastName: "Hydrogen", gender: "H", age: 1.008, position: "Hydrogen", hireDate: "Hydrogen", salary: "Hydrogen", status: "H", photo: 1.008 },
